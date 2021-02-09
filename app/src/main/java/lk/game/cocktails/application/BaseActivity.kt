@@ -4,13 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
 
 abstract class BaseActivity<B : ViewBinding>(val bindingFactory: (LayoutInflater) -> B) :
-    AppCompatActivity(), KodeinAware {
-
-    override val kodein: Kodein by lazy { (application as MyApplication).kodein }
+    AppCompatActivity() {
 
     protected lateinit var binding: B
 

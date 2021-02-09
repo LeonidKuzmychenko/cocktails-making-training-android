@@ -2,8 +2,9 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 //    id 'kotlin-android-extensions'
-//    id 'kotlin-kapt'
+    id 'kotlin-kapt'
 //    id 'androidx.navigation.safeargs'
+
 }
 
 android {
@@ -80,12 +81,16 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
 
     //Kodein (DI)*
-    //    implementation "org.kodein.di:kodein-di-jvm:7.3.0"
-    //    implementation "org.kodein.di:kodein-di-framework-android-support:6.5.5"
-
-    implementation "org.kodein.di:kodein-di-generic-jvm:6.5.5"
-    implementation "org.kodein.di:kodein-di-framework-android-x:6.5.5"
-
 //    implementation "org.kodein.di:kodein-di-generic-jvm:6.5.5"
 //    implementation "org.kodein.di:kodein-di-framework-android-x:6.5.5"
+
+    //Dagger2
+//    kapt "com.google.dagger:dagger-compiler:2.31.2"
+//    implementation "com.google.dagger:dagger:2.31.2"
+
+    implementation "com.google.dagger:dagger:2.31.2"
+    implementation "com.google.dagger:dagger-android-support:2.31.2"
+    kapt "com.google.dagger:dagger-compiler:2.31.2"
+    kapt "com.google.dagger:dagger-android-processor:2.31.2"
+
 }
