@@ -22,31 +22,14 @@ class WebModule {
 
     @Provides
     @Singleton
-    @Named("api1")
-    fun provideApi1(retrofit: Retrofit): Api {
+    fun provideApi(retrofit: Retrofit): Api {
         return retrofit.create(Api::class.java)
     }
 
     @Provides
     @Singleton
-    @Named("api2")
-    fun provideApi2(retrofit: Retrofit): Api {
-        return retrofit.create(Api::class.java)
+    fun provideString(string:String): String {
+        return "my generate = $string"
     }
 
-    @Provides
-    @Singleton
-    fun newObject(retrofit: Retrofit): Object {
-        return Object()
-    }
-
-//    @Provides
-//    @Singleton
-//    fun provideApi(): Api {
-//        return Retrofit.Builder()
-//            .baseUrl("http://192.168.43.207/myapi/public/")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//            .create(Api::class.java)
-//    }
 }

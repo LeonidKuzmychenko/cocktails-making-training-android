@@ -2,36 +2,38 @@ package lk.game.cocktails
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import lk.game.cocktails.application.BaseActivity
 import lk.game.cocktails.application.MyApplication
 import lk.game.cocktails.databinding.ActivityMainBinding
 import lk.game.cocktails.retrofit.Api
-import retrofit2.Retrofit
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
 
     @Inject
-    @Named("api1")
-    lateinit var api1: Api
-
-    @Inject
-    @Named("api2")
-    lateinit var api2: Api
-
-    @Inject
-    lateinit var retrofit: Retrofit
+    lateinit var api: Api
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (application as MyApplication).getWebComponent()?.inject(this)
+//        val model: MainViewModel by viewModels()//TODO
+        val model = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        model.users.observe(this, { users ->
+            Log.d(TAG,"this")
+        })
+
+        model.users.value = mutableListOf("dwdwdw")
+
         binding.buttonRt.setOnClickListener {
-            Log.d("TAG_RETROFIT", "api = $api1")
-            Log.d("TAG_RETROFIT", "ap2 = $api2")
-            Log.d("TAG_RETROFIT", "retrofit = $retrofit")
-            Log.d("TAG_RETROFIT", "____________________________________")
+            Log.d(TAG, "api = $api")
         }
+
     }
 
 }
