@@ -7,5 +7,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [WebModule::class])
 interface WebComponent {
+
     fun inject(activity: MainActivity)
+
 }

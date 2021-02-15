@@ -3,16 +3,19 @@ package lk.game.cocktails
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import lk.game.cocktails.application.BaseActivity
 import lk.game.cocktails.application.MyApplication
 import lk.game.cocktails.databinding.ActivityMainBinding
-import lk.game.cocktails.retrofit.Api
+import lk.game.cocktails.retrofit.repository.ApiRepository
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
 
     @Inject
-    lateinit var api: Api
+    lateinit var api: ApiRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,16 +23,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 //        val model: MainViewModel by viewModels()//TODO
         val model = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        model.users.observe(this, { users ->
-            Log.d(TAG, "this")
+        model.cocktails.observe(this, { cocktail ->
+            Log.d(TAG, "LiveData = $cocktail")
         })
-
-        model.users.value = mutableListOf("dwdwdw")
 
         binding.buttonRt.setOnClickListener {
             Log.d(TAG, "api = $api")
+            CoroutineScope(Dispatchers.IO).launch {
+                val answer = api.getCocktails()
+                model.cocktails.postValue(answer)
+            }
         }
-
     }
 
 }

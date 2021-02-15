@@ -1,20 +1,17 @@
 package lk.game.cocktails.retrofit
 
+import lk.game.cocktails.retrofit.data.Cocktail
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
+
 interface Api {
 
-//    @FormUrlEncoded
-//    @POST("createuser")
-//    fun createUser(
-//            @Field("email") email:String,
-//            @Field("name") name:String,
-//            @Field("password") password:String,
-//            @Field("school") school:String
-//    ):Call<DefaultResponse>
-//
-//    @FormUrlEncoded
-//    @POST("userlogin")
-//    fun userLogin(
-//            @Field("email") email:String,
-//            @Field("password") password: String
-//    ):Call<LoginResponse>
+    @GET("ui/getAll/")
+    suspend fun getCocktails(
+        @Query("locale") locale: String,
+        @Query("cSize") cSize: Long,
+        @Query("iSize") iSize: Long
+    ): Response<List<Cocktail>>
+
 }
