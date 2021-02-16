@@ -29,8 +29,8 @@ class LoadFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LoadViewModel::class.java)
         CoroutineScope(Dispatchers.IO).launch {
-            for (i in 1..5) {
-                Thread.sleep(1500)
+            for (i in 1..3) {
+                Thread.sleep(1000)
                 CoroutineScope(Dispatchers.Main).launch {
                     Toast.makeText(context, "$i", Toast.LENGTH_SHORT).show()
                 }
