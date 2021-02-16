@@ -1,11 +1,12 @@
-package lk.game.cocktails.fragments.mode
+package lk.game.cocktails.fragments.mode.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import lk.game.cocktails.databinding.ItemChooseModeBinding
 
-class ModeRecyclerView(private val values: List<String>) : RecyclerView.Adapter<ModeRecyclerView.ModeViewHolder>() {
+class ModeRecyclerViewAdapter(private val values: List<String>) :
+    RecyclerView.Adapter<ModeRecyclerViewAdapter.ModeViewHolder>() {
 
     class ModeViewHolder(val binding: ItemChooseModeBinding) : RecyclerView.ViewHolder(binding.root)
 
