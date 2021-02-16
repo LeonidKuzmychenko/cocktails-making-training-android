@@ -1,8 +1,6 @@
 package lk.game.cocktails
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import lk.game.cocktails.retrofit.data.Cocktail
 
 class MainViewModel : ViewModel() {
 //    val cocktails: MutableLiveData<List<Cocktail>> by lazy {
@@ -11,7 +9,7 @@ class MainViewModel : ViewModel() {
 //        }
 //    }//TODO
 
-    val cocktails: MutableLiveData<List<Cocktail>> = MutableLiveData()
+//    val cocktails: MutableLiveData<List<Cocktail>> = MutableLiveData()
 
 }
 

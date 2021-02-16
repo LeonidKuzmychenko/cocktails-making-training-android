@@ -1,39 +1,38 @@
 package lk.game.cocktails
 
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import lk.game.cocktails.application.BaseActivity
-import lk.game.cocktails.application.MyApplication
-import lk.game.cocktails.databinding.ActivityMainBinding
-import lk.game.cocktails.retrofit.repository.ApiRepository
-import javax.inject.Inject
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
 
-    @Inject
-    lateinit var api: ApiRepository
+//class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
+class MainActivity : AppCompatActivity() {
+
+//    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (application as MyApplication).getWebComponent()?.inject(this)
-//        val model: MainViewModel by viewModels()//TODO
-        val model = ViewModelProvider(this).get(MainViewModel::class.java)
-
-        model.cocktails.observe(this, { cocktail ->
-            Log.d(TAG, "LiveData = $cocktail")
-        })
-
-        binding.buttonRt.setOnClickListener {
-            Log.d(TAG, "api = $api")
-            CoroutineScope(Dispatchers.IO).launch {
-                val answer = api.getCocktails()
-                model.cocktails.postValue(answer)
-            }
-        }
+        setContentView(R.layout.activity_main)
+//        (application as MyApplication).getWebComponent()?.inject(this)
+//        setupWithNavController()
+//        navController.navigate(R.id.modeFragment)
     }
 
+//    private fun setupWithNavController() {
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        navController = navHostFragment.navController
+//        navController.setGraph(R.navigation.mobile_nav)
+//    }
+
 }
+
+//        val model = ViewModelProvider(this).get(MainViewModel::class.java)
+//        model.cocktails.observe(this, { cocktail ->
+//            Log.d(TAG, "LiveData = $cocktail")
+//        })
+//        binding.buttonRt.setOnClickListener {
+//            Log.d(TAG, "api = $api")
+//            CoroutineScope(Dispatchers.IO).launch {
+//                val answer = api.getCocktails()
+//                model.cocktails.postValue(answer)
+//            }
+//        }
