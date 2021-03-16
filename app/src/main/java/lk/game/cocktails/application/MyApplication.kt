@@ -6,14 +6,14 @@ import lk.game.cocktails.dagger.WebComponent
 
 class MyApplication : Application() {
 
-    private var component: WebComponent? = null
+    private lateinit var component: WebComponent
 
     override fun onCreate() {
         super.onCreate()
         component = DaggerWebComponent.create()
     }
 
-    fun getWebComponent(): WebComponent? {
+    fun getWebComponent(): WebComponent {
         return component
     }
 
