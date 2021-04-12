@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 import lk.game.cocktails.application.MyApplication
 import lk.game.cocktails.retrofit.Api
 import lk.game.cocktails.room.AppDatabase
-import lk.game.cocktails.room.EmployeeDao
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var db: AppDatabase
 
     @Inject
-    lateinit var api:Api
+    lateinit var api: Api
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +29,10 @@ class MainActivity : AppCompatActivity() {
         val employeeDao = db.employeeDao()
         Log.d(TAG, "employeeDao = $employeeDao")
         GlobalScope.launch {
-            Log.d(TAG, "employeeDao = ${employeeDao?.getAll()}")
+            Log.d(this@MainActivity.TAG, "data = ${employeeDao.getAll()}")
         }
+        val join = listOf(1L, 2L, 3L).joinToString(separator = ",")
+        Log.d(TAG, "listOf = $join")
     }
 
 }

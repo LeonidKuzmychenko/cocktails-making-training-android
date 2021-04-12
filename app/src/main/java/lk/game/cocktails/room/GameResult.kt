@@ -5,10 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Employee(
+data class GameResult(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    @ColumnInfo(name = "firstName")
-    val firstName: String?
+    @ColumnInfo(name = "excludes")
+    val excludes: String
 )
 

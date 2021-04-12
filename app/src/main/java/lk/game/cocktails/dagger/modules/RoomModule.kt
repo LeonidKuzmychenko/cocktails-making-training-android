@@ -5,7 +5,7 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import lk.game.cocktails.room.AppDatabase
-import lk.game.cocktails.room.EmployeeDao
+import lk.game.cocktails.room.GameResultDao
 import javax.inject.Singleton
 
 @Module
@@ -19,7 +19,7 @@ class RoomModule(private val application: Application) {
 
     @Singleton
     @Provides
-    fun providesProductDao(db:AppDatabase): EmployeeDao? {
+    fun providesProductDao(db: AppDatabase): GameResultDao? {
         return db.employeeDao()
     }
     //

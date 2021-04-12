@@ -2,10 +2,8 @@ package lk.game.cocktails.dagger
 
 import dagger.Component
 import lk.game.cocktails.MainActivity
-import lk.game.cocktails.dagger.modules.AppModule
 import lk.game.cocktails.dagger.modules.RoomModule
 import lk.game.cocktails.dagger.modules.WebModule
-import lk.game.cocktails.room.EmployeeDao
 import javax.inject.Singleton
 
 @Singleton
