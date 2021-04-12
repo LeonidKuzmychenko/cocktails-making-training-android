@@ -9,6 +9,6 @@ data class GameResult(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "excludes")
-    val excludes: String
+    var excludes: String
 )
 

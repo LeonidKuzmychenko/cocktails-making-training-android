@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName
 
 data class Cocktail(
 
+    @SerializedName("id")
+    @Expose
+    var id: Long,
+
     @SerializedName("name")
     @Expose
     var name: String,
