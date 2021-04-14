@@ -1,32 +1,21 @@
 package lk.game.cocktails.db
 
 import android.content.Context
-import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.*
-import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import lk.game.cocktails.Bookmark
 
 class UserPreferences(context: Context) {
 
     private val applicationContext = context.applicationContext
-    private val dataStore: DataStore<Preferences>
 
-    init {
-        dataStore = applicationContext.createDataStore(
-            name = "app_preferences"
-        )
-    }
+    private val Context.myDataStore2 by dataStore(fileName = "bookmark.pb", serializer = BookmarkDataStore.BookmarkSerializer)
 
-    val bookmark: Flow<String?>
-        get() = dataStore.data.map { preferences ->
-            preferences[KEY_BOOKMARK]
-        }
+    val bookmark: Flow<Bookmark?> = this.applicationContext.myDataStore2.data
 
-    suspend fun saveBookmark(bookmark: String) {
-        dataStore.edit { preferences ->
-            preferences[KEY_BOOKMARK] = bookmark
-        }
+    suspend fun saveBookmark(bookmark: Bookmark) {
+        this.applicationContext.myDataStore2.updateData{ b0:Bookmark -> bookmark }
     }
 
     companion object {
