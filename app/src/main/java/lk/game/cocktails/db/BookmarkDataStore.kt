@@ -1,9 +1,12 @@
 package lk.game.cocktails.db
 
 import android.content.Context
-import androidx.datastore.CorruptionException
-import androidx.datastore.DataStore
-import androidx.datastore.Serializer
+import androidx.datastore.core.CorruptionException
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.Serializer
+//import androidx.datastore.CorruptionException
+//import androidx.datastore.DataStore
+//import androidx.datastore.Serializer
 import androidx.datastore.createDataStore
 import androidx.datastore.preferences.protobuf.InvalidProtocolBufferException
 import kotlinx.coroutines.flow.map
@@ -46,9 +49,8 @@ class BookmarkDataStore(
             }
         }
  
-        override fun writeTo(
-            t: Bookmark,
-            output: OutputStream
-        ) = t.writeTo(output)
+        override fun writeTo(t: Bookmark, output: OutputStream) = t.writeTo(output)
+
+        override val defaultValue: Bookmark get() = Bookmark.getDefaultInstance()
     }
 }

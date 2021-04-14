@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
             Log.d(this@MainActivity.TAG,"Text = $it")
         })
 
-//        GlobalScope.launch {
-//            val bookmark = UUID.randomUUID().toString()
-//            bookmarkDataStore.saveBookmark(bookmark)
-//        }
+        GlobalScope.launch {
+            val bookmark = UUID.randomUUID().toString()
+            bookmarkDataStore.saveBookmark(bookmark)
+        }
 
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
