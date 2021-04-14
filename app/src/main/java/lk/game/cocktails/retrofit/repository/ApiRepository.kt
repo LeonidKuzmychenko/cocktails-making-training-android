@@ -1,9 +1,6 @@
 package lk.game.cocktails.retrofit.repository
 
-import android.util.Log
-import lk.game.cocktails.TAG
 import lk.game.cocktails.retrofit.Api
-import lk.game.cocktails.retrofit.data.Cocktail
 
 class ApiRepository(var api: Api) {
 

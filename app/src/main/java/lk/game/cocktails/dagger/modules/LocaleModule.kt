@@ -1,6 +1,5 @@
 package lk.game.cocktails.dagger.modules
 
-import android.app.Application
 import dagger.Module
 import dagger.Provides
 import java.util.*
