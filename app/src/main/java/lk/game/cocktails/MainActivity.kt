@@ -3,13 +3,9 @@ package lk.game.cocktails
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import lk.game.cocktails.application.MyApplication
 import lk.game.cocktails.db.BookmarkDataStore
-import lk.game.cocktails.db.UserPreferences
 import lk.game.cocktails.retrofit.Api
 import java.util.*
 import javax.inject.Inject
@@ -24,8 +20,8 @@ class MainActivity : AppCompatActivity() {
     @Named("Locale")
     lateinit var locale: String
 
-//    private lateinit var userPreferences: UserPreferences
-    private lateinit var bookmarkDataStore: BookmarkDataStore
+    @Inject
+    lateinit var bookmarkDataStore:BookmarkDataStore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +30,14 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(TAG, "Dagger locale lang: $locale")
 
-        bookmarkDataStore = BookmarkDataStore(this)
-
         bookmarkDataStore.bookmark.asLiveData().observe(this, {
             Log.d(this@MainActivity.TAG,"Text = $it")
         })
 
-        GlobalScope.launch {
-            val bookmark = UUID.randomUUID().toString()
-            bookmarkDataStore.saveBookmark(bookmark)
-        }
+//        GlobalScope.launch {
+//            val bookmark = "Я хочу сохранить этот текст"
+//            bookmarkDataStore.saveBookmark(bookmark)
+//        }
 
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
