@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+//option java_package = "com.example.jetpackdatastore";
+option java_package = "lk.game.cocktails";
+option java_multiple_files = true;
+
+message Bookmark {
+  string bookmark = 1;
+}
