@@ -2,14 +2,8 @@ package lk.game.cocktails.db
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.preferencesKey
-//import androidx.datastore.DataStore
-//import androidx.datastore.preferences.Preferences
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.createDataStore
-//import androidx.datastore.preferences.edit
-//import androidx.datastore.preferences.preferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -35,8 +29,7 @@ class UserPreferences(context: Context) {
         }
     }
 
-
     companion object {
-        val KEY_BOOKMARK = preferencesKey<String>("key_bookmark")
+        val KEY_BOOKMARK = stringPreferencesKey("key_bookmark")
     }
 }
