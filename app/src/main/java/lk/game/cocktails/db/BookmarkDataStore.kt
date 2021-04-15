@@ -3,7 +3,6 @@ package lk.game.cocktails.db
 import android.content.Context
 import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
-import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.flow.Flow
 import lk.game.cocktails.Bookmark
 import java.io.InputStream
@@ -30,7 +29,7 @@ class BookmarkDataStore(context: Context) {
         return bookmark.asLiveData().value?.bookmark
     }
 
-    suspend fun update(value:String) {
+    suspend fun update(value: String) {
         this.applicationContext.myDataStore.updateData {
             it.toBuilder()
                 .setBookmark(value)
@@ -38,7 +37,7 @@ class BookmarkDataStore(context: Context) {
         }
     }
 
-    suspend fun clear(value:String) {
+    suspend fun clear(value: String) {
         this.applicationContext.myDataStore.updateData {
             it.toBuilder()
                 .clearBookmark()

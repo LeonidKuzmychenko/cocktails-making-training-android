@@ -3,12 +3,7 @@ package lk.game.cocktails
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import lk.game.cocktails.application.MyApplication
-import lk.game.cocktails.db.BookmarkDataStore
 import lk.game.cocktails.retrofit.Api
 import javax.inject.Inject
 import javax.inject.Named
@@ -22,9 +17,6 @@ class MainActivity : AppCompatActivity() {
     @Named("Locale")
     lateinit var locale: String
 
-    @Inject
-    lateinit var bookmarkDataStore: BookmarkDataStore
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,26 +24,6 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(TAG, "Dagger locale lang: $locale")
 
-        bookmarkDataStore.getBookmark().asLiveData().observe(this, Observer {
-            Log.d(this@MainActivity.TAG, "Bookmark = $it")
-        })
-
-        GlobalScope.launch {
-            bookmarkDataStore.update("value1")
-            Thread.sleep(1000)
-            bookmarkDataStore.update("value2")
-            Thread.sleep(1000)
-            bookmarkDataStore.update("value3")
-            Thread.sleep(1000)
-
-
-        }
-
-        val value1 = bookmarkDataStore.getValue()
-        Log.d(this@MainActivity.TAG, "FINISH 1 = $value1")
-
-        val value2 = bookmarkDataStore.getValueValue()
-        Log.d(this@MainActivity.TAG, "FINISH 2 = $value2")
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
 //        userPreferences = UserPreferences(this)
