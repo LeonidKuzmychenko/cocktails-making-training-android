@@ -7,11 +7,17 @@ import retrofit2.http.Query
 
 interface Api {
 
-    @GET("ui/getAll/")
-    suspend fun getCocktails(
-        @Query("locale") locale: String,
-        @Query("cSize") cSize: Long,
-        @Query("iSize") iSize: Long
-    ): Response<List<Cocktail>>
+//    @GET("ui/getAll/")
+//    suspend fun getCocktails(
+//        @Query("locale") locale: String,
+//        @Query("cSize") cSize: Long,
+//        @Query("iSize") iSize: Long
+//    ): Response<List<Cocktail>>
 
+    @GET("ui/cocktail/one")
+    suspend fun getCocktail(
+        @Query("locale") locale: String,
+        @Query("exclude") exclude: String,
+        @Query("iSize") iSize: Long
+    ): Response<Cocktail>
 }
