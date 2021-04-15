@@ -7,10 +7,12 @@ import dagger.Module
 import dagger.Provides
 import lk.game.cocktails.retrofit.Api
 import lk.game.cocktails.retrofit.repository.ApiRepository
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -19,9 +21,16 @@ class WebModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
-        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+    fun provideRetrofit(@Named("Locale") locale: String): Retrofit {
+        val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+        val headerLocale = Interceptor {
+            val request = it.request().newBuilder().addHeader("locale", locale).build()
+            it.proceed(request)
+        }
+        val client: OkHttpClient = OkHttpClient.Builder()
+            .addInterceptor(logger)
+            .addInterceptor(headerLocale)
+            .build()
         return Retrofit.Builder()
             .baseUrl("http://cocktails-making-training.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
