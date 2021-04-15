@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import lk.game.cocktails.databinding.ItemChooseModeBinding
+import lk.game.cocktails.retrofit.data.Mode
 
-class ModeRecyclerViewAdapter(private val values: List<String>) :
+class ModeRecyclerViewAdapter(private val values: List<Mode>) :
     RecyclerView.Adapter<ModeRecyclerViewAdapter.ModeViewHolder>() {
 
     class ModeViewHolder(val binding: ItemChooseModeBinding) : RecyclerView.ViewHolder(binding.root)
@@ -17,7 +18,7 @@ class ModeRecyclerViewAdapter(private val values: List<String>) :
     }
 
     override fun onBindViewHolder(holder: ModeViewHolder, position: Int) {
-        holder.binding.textView3.text = values[position]
+        holder.binding.textView3.text = values[position].name
     }
 
     override fun getItemCount() = values.size

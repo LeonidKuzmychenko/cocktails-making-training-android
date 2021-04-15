@@ -6,6 +6,7 @@ import lk.game.cocktails.dagger.modules.AppModule
 import lk.game.cocktails.dagger.modules.LocaleModule
 import lk.game.cocktails.dagger.modules.SharedPreferencesModule
 import lk.game.cocktails.dagger.modules.WebModule
+import lk.game.cocktails.fragments.mode.ModeFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -13,5 +14,6 @@ import javax.inject.Singleton
 interface WebComponent {
 
     fun inject(activity: MainActivity)
+    fun inject(fragment: ModeFragment)
 
 }

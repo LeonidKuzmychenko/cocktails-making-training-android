@@ -8,14 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import lk.game.cocktails.TAG
+import lk.game.cocktails.application.MyApplication
 import lk.game.cocktails.databinding.FragmentModeBinding
 import lk.game.cocktails.fragments.mode.adapter.ModeRecyclerViewAdapter
+import lk.game.cocktails.retrofit.Api
+import javax.inject.Inject
 
 class ModeFragment : Fragment() {
 
     private lateinit var binding: FragmentModeBinding
     private lateinit var viewModel: ModeViewModel
+
+    @Inject
+    lateinit var api: Api
 
     override fun onAttach(context: Context) {
         Log.d(TAG, "onAttach")
@@ -25,13 +33,10 @@ class ModeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate")
         super.onCreate(savedInstanceState)
+        (context?.applicationContext as MyApplication).getWebComponent().inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, sis: Bundle?): View {
         Log.d(TAG, "onCreateView")
         this.binding = FragmentModeBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,6 +58,12 @@ class ModeFragment : Fragment() {
 
     override fun onResume() {
         Log.d(TAG, "onResume")
+        GlobalScope.launch {
+            val response = api.getModes()
+            Log.d(this@ModeFragment.TAG, "Response Code = ${response.code()}")
+            val body = response.body()
+            viewModel.modes.postValue(body)
+        }
         super.onResume()
     }
 }
