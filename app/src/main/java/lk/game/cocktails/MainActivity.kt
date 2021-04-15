@@ -3,8 +3,6 @@ package lk.game.cocktails
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import lk.game.cocktails.application.MyApplication
 import lk.game.cocktails.retrofit.Api
 import lk.game.cocktails.shared.SharedPreferencesService
@@ -28,14 +26,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         (application as MyApplication).getWebComponent().inject(this)
 
+        sp.clearExcludeList()
         Log.d(TAG, "Api: $api")
         Log.d(TAG, "Locale: $locale")
         Log.d(TAG, "SharedPreferencesService data: ${sp.getExcludeList()}")
         Log.d(TAG, "-------------------------------------------------")
-
-        GlobalScope.launch {
-            getCocktail()
-        }
     }
 
     private suspend fun getCocktail() {

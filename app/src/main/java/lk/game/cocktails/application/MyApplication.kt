@@ -11,10 +11,6 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-//        webComponent = DaggerWebComponent.builder()
-//            .webModule(WebModule())
-//            .build()
-
         webComponent = DaggerWebComponent.builder().appModule(AppModule(this)).build()
     }
 
