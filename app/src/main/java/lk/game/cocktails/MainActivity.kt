@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import lk.game.cocktails.application.MyApplication
 import lk.game.cocktails.retrofit.Api
+import lk.game.cocktails.shared.SharedPreferencesService
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -17,22 +18,18 @@ class MainActivity : AppCompatActivity() {
     @Named("Locale")
     lateinit var locale: String
 
+    @Inject
+    lateinit var sp: SharedPreferencesService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         (application as MyApplication).getWebComponent().inject(this)
 
         Log.d(TAG, "Dagger locale lang: $locale")
+        Log.d(TAG, "SharedPreferencesService: $sp")
+        Log.d(TAG, "SharedPreferencesService data: ${sp.getExcluded()}")
 
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-
-//        userPreferences = UserPreferences(this)
-//
-//        userPreferences.bookmark.asLiveData().observe(this, Observer {
-//            Log.d(this@MainActivity.TAG,"Text = $it")
-//        })
-//
-//
 //        GlobalScope.launch{
 //
 //            val bookmark = UUID.randomUUID().toString()
