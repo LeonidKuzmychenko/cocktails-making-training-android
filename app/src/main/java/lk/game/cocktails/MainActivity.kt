@@ -26,10 +26,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         (application as MyApplication).getWebComponent().inject(this)
 
-        Log.d(TAG, "Dagger locale lang: $locale")
-        Log.d(TAG, "SharedPreferencesService: $sp")
-        Log.d(TAG, "SharedPreferencesService data: ${sp.getExcluded()}")
-
+        Log.d(TAG, "Api: $api")
+        Log.d(TAG, "Locale: $locale")
+        Log.d(TAG, "SharedPreferencesService data: ${sp.getExcludeList()}")
 //        GlobalScope.launch{
 //
 //            val bookmark = UUID.randomUUID().toString()

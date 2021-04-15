@@ -1,6 +1,7 @@
 package lk.game.cocktails.dagger.modules
 
 import android.content.Context
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import lk.game.cocktails.shared.SharedPreferencesService
@@ -11,7 +12,13 @@ class SharedPreferencesModule {
 
     @Provides
     @Singleton
-    fun provideSharedPreferencesService(context: Context): SharedPreferencesService {
-        return SharedPreferencesService(context)
+    fun provideSharedPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences("mysettings", Context.MODE_PRIVATE)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferencesService(sp: SharedPreferences): SharedPreferencesService {
+        return SharedPreferencesService(sp)
     }
 }

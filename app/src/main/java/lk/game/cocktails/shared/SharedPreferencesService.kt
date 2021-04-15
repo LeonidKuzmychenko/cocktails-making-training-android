@@ -1,28 +1,32 @@
 package lk.game.cocktails.shared
 
-import android.content.Context
 import android.content.SharedPreferences
 
 
-class SharedPreferencesService(context: Context) {
-    val APP_PREFERENCES_NAME = "Nickname"
+class SharedPreferencesService(private val sp: SharedPreferences) {
 
-    var sp: SharedPreferences = context.getSharedPreferences(
-        "mysettings",
-        Context.MODE_PRIVATE
-    )
+    private val KEY_EXCLUDE: String = "KEY"
 
-    fun addExclude(exclude: String) {
-        val excludeList = getExcluded()
+    fun addExclude(exclude: Long) {
+        val excludeList = getExcludeList()
         excludeList.add(exclude)
 
         val editor: SharedPreferences.Editor = sp.edit()
-        editor.putStringSet(APP_PREFERENCES_NAME, excludeList.toSet())
+        editor.putStringSet(KEY_EXCLUDE, excludeList.map { it.toString() }.toSet())
         editor.apply()
     }
 
-    fun getExcluded(): MutableList<String> {
-        val ex: MutableSet<String>? = sp.getStringSet(APP_PREFERENCES_NAME, HashSet<String>())
-        return ex?.toMutableList() ?: mutableListOf()
+    fun getExcludeList(): MutableList<Long> {
+        val excludeStringSet: Set<String>? = sp.getStringSet(KEY_EXCLUDE, HashSet<String>())
+        val excludeLongList: List<Long>? = excludeStringSet?.map { it.toLong() }
+        return excludeLongList?.toMutableList() ?: mutableListOf()
+    }
+
+    fun getExcludeListSize(): Int = getExcludeList().size
+
+    fun clearExcludeList() {
+        val editor: SharedPreferences.Editor = sp.edit()
+        editor.putStringSet(KEY_EXCLUDE, HashSet<String>())
+        editor.apply()
     }
 }
