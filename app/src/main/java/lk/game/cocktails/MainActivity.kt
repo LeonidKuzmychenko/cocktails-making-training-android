@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         (application as MyApplication).getWebComponent().inject(this)
 
+        
         Log.d(TAG, "Dagger locale lang: $locale")
 
         bookmarkDataStore.getBookmark().asLiveData().observe(this, Observer {
