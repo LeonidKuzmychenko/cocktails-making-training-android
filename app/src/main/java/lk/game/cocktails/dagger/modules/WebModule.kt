@@ -6,6 +6,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import dagger.Module
 import dagger.Provides
 import lk.game.cocktails.retrofit.Api
+import lk.game.cocktails.retrofit.converters.NullOnEmptyConverterFactory
 import lk.game.cocktails.retrofit.repository.ApiRepository
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -33,6 +34,7 @@ class WebModule {
             .build()
         return Retrofit.Builder()
             .baseUrl("http://cocktails-making-training.herokuapp.com/")
+            .addConverterFactory(NullOnEmptyConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(client)
