@@ -2,6 +2,7 @@ package lk.game.cocktails
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import lk.game.cocktails.application.MyApplication
 import lk.game.cocktails.retrofit.Api
@@ -37,12 +38,20 @@ class MainActivity : AppCompatActivity() {
         val excludes = sp.getExcludeList()
         Log.d(this@MainActivity.TAG, "Excludes = $excludes")
         Log.d(this@MainActivity.TAG, "Excludes size = ${excludes.size}")
-        val cocktail = api.getCocktail("RU", excludes.joinToString(","), 10)
-        val cocktailId = cocktail.body()!!.id
-        sp.addExclude(cocktailId)
-        Log.d(this@MainActivity.TAG, "Cocktail id = $cocktailId")
-        Log.d(this@MainActivity.TAG, "-------------------------------------------------")
-        Thread.sleep(200)
+        val response = api.getCocktail("RU", excludes.joinToString(","), 10)
+        val responseCode = response.code()
+        Log.d(this@MainActivity.TAG, "Cocktail response code = $responseCode")
+        if (responseCode == 200){
+            val cocktailId = response.body()!!.id
+            sp.addExclude(cocktailId)
+            Log.d(this@MainActivity.TAG, "Cocktail id = $cocktailId")
+            Log.d(this@MainActivity.TAG, "-------------------------------------------------")
+            Thread.sleep(200)
+        }
+        else if (responseCode == 215){
+            Toast.makeText(this@MainActivity, "You are WIN", Toast.LENGTH_LONG).show()
+            return
+        }
         getCocktail()
     }
 
