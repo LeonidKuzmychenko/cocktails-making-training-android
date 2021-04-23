@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.load.LoadFragment">
+    tools:context=".fragments.load.LoadFragment"
+    android:background="@color/app_background">
 
     <ImageView
         android:id="@+id/imageView2"
