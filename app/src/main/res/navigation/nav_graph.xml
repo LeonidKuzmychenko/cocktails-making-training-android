@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/loadFragment"
         android:name="lk.game.cocktails.fragments.load.LoadFragment"
-        android:label="fragment_load"
+        android:label="Загрузка..."
         tools:layout="@layout/fragment_load" >
         <action
             android:id="@+id/action_loadFragment_to_modeFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/modeFragment"
         android:name="lk.game.cocktails.fragments.mode.ModeFragment"
-        android:label="fragment_mode"
+        android:label="Выбор режима игры"
         tools:layout="@layout/fragment_mode" >
         <action
             android:id="@+id/action_modeFragment_to_gameFragment"

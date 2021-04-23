@@ -7,12 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorOnPrimary">#FFFFFFFF</color>
 
+    <color name="app_action_bar">#eaeff3</color>
+    <color name="app_status_bar">#eaeff3</color>
+    <color name="app_background">#eaeff3</color>
+    <color name="app_card">#f9f8fe</color>
+    <color name="text_color">#000000</color>
+    <color name="text_color_inversion">#ffffff</color>
+    <color name="focus_of_attention">#ed9c40</color>
+    <color name="card_border">#7c8185</color>
 
-    <color name="color_1">#733dd9</color>
-    <color name="color_2">#000000</color>
-    <color name="color_3">#4f00a8</color>
-    <color name="color_4">#FFFFFFFF</color>
     <color name="color_5">#FFFFFFFF</color>
     <color name="color_6">#FFFFFFFF</color>
 </resources>

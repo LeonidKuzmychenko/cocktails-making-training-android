@@ -3,8 +3,6 @@ package lk.game.cocktails
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import lk.game.cocktails.application.MyApplication
 import lk.game.cocktails.retrofit.Api
 import lk.game.cocktails.shared.SharedPreferencesService
@@ -23,9 +21,11 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var sp: SharedPreferencesService
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.elevation = 0f
         (application as MyApplication).getWebComponent().inject(this)
 
         sp.clearExcludeList()
@@ -38,9 +38,9 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "SharedPreferencesService data: ${sp.getExcludeList()}")
         Log.d(TAG, "-------------------------------------------------")
 
-        GlobalScope.launch {
-            getCocktail()
-        }
+//        GlobalScope.launch {
+//            getCocktail()
+//        }
     }
 
     private suspend fun getCocktail() {
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         Log.d(this@MainActivity.TAG, "Excludes = $excludes")
         Log.d(this@MainActivity.TAG, "Excludes size = ${excludes.size}")
         val response = api.getCocktail("RU", excludes.joinToString(","), 10)
-        val responseCode = response?.code()
+        val responseCode = response.code()
         Log.d(this@MainActivity.TAG, "Cocktail response code = $responseCode")
         if (responseCode == 200){
             val cocktailId = response.body()!!.id
