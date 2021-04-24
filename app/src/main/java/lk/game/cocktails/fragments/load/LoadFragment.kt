@@ -11,7 +11,6 @@ import androidx.navigation.Navigation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import lk.game.cocktails.R
 import lk.game.cocktails.TAG
 import lk.game.cocktails.application.BaseFragment
 import lk.game.cocktails.databinding.FragmentLoadBinding
@@ -40,10 +39,9 @@ class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
             Thread.sleep(2000)
             CoroutineScope(Dispatchers.Main).launch {
                 activity.supportActionBar!!.show()
-                Navigation.findNavController(
-                    this@LoadFragment.requireActivity(),
-                    R.id.nav_host_fragment
-                ).navigate(R.id.modeFragment)
+                Navigation.findNavController(requireView())
+                    .navigate(LoadFragmentDirections.actionLoadFragmentToMenuFragment())
+//                    .navigate(R.id.action_loadFragment_to_menuFragment)
             }
         }
     }

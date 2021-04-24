@@ -1,4 +1,4 @@
-package lk.game.cocktails.fragments
+package lk.game.cocktails.fragments.menu
 
 import androidx.lifecycle.ViewModel
 

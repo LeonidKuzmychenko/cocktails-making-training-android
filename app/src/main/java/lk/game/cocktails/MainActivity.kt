@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import lk.game.cocktails.application.AppComponent
 import lk.game.cocktails.application.BaseActivity
 import lk.game.cocktails.dagger.annotation.named.Keys
@@ -32,9 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (application as AppComponent).getWebComponent().inject(this)
-
-        NavigationUI.setupActionBarWithNavController(this, getNavController())
-
+        configurationActionBar()
         Log.d(TAG, "Api: $api")
         Log.d(TAG, "Locale: $locale")
         Log.d(TAG, "SharedPreferencesService data: ${sp.getExcludeList()}")
@@ -60,5 +59,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         val fragment: Fragment? = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val navHostFragment = fragment as NavHostFragment
         return navHostFragment.navController
+    }
+
+    private fun configurationActionBar() {
+        val appBarConfiguration = AppBarConfiguration.Builder(
+            R.id.loadFragment,
+            R.id.menuFragment
+        ).build()
+        setupActionBarWithNavController(getNavController(), appBarConfiguration)
     }
 }

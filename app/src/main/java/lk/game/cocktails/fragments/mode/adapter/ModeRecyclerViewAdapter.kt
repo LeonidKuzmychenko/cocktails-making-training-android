@@ -2,8 +2,11 @@ package lk.game.cocktails.fragments.mode.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import lk.game.cocktails.databinding.ItemChooseModeBinding
+import lk.game.cocktails.fragments.mode.ModeFragmentDirections
 import lk.game.cocktails.retrofit.data.Mode
 
 class ModeRecyclerViewAdapter(private val values: List<Mode>) :
@@ -18,7 +21,15 @@ class ModeRecyclerViewAdapter(private val values: List<Mode>) :
     }
 
     override fun onBindViewHolder(holder: ModeViewHolder, position: Int) {
-        holder.binding.textView3.text = values[position].name
+        holder.binding.modeName.text = values[position].name
+        holder.binding.modeCard.setOnClickListener {
+            if (position == 0) {
+                val action = ModeFragmentDirections.actionModeFragmentToGameFragment()
+                Navigation.findNavController(holder.itemView).navigate(action)
+            } else {
+                Toast.makeText(holder.itemView.context, "SORRY", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun getItemCount() = values.size
