@@ -5,7 +5,7 @@ import lk.game.cocktails.dagger.DaggerWebComponent
 import lk.game.cocktails.dagger.WebComponent
 import lk.game.cocktails.dagger.modules.AppModule
 
-class MyApplication : Application() {
+class AppComponent : Application() {
 
     private lateinit var webComponent: WebComponent
 

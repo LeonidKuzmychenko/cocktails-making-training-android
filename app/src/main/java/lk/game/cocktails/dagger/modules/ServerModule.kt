@@ -4,17 +4,16 @@ import dagger.Module
 import dagger.Provides
 import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
-import java.util.*
 import javax.inject.Singleton
 
 @Module
-class LocaleModule {
+class ServerModule {
 
-    @Qualifier(Keys.LOCALE)
+    @Qualifier(Keys.SERVER_NAME)
     @Provides
     @Singleton
-    fun provideLocale(): String {
-        return Locale.getDefault().language.toUpperCase(Locale.ROOT)
+    fun provideHost(): String {
+        return "http://cocktails-making-training.herokuapp.com/"
     }
 
 }

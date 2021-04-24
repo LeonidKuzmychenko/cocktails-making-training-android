@@ -1,4 +1,4 @@
-package lk.game.cocktails.dagger
+package lk.game.cocktails.dagger.annotation
 
 import javax.inject.Scope
 

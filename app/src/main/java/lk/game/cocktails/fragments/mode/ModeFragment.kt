@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import lk.game.cocktails.TAG
-import lk.game.cocktails.application.MyApplication
+import lk.game.cocktails.application.AppComponent
 import lk.game.cocktails.databinding.FragmentModeBinding
 import lk.game.cocktails.fragments.mode.adapter.ModeRecyclerViewAdapter
 import lk.game.cocktails.retrofit.Api
@@ -35,7 +35,7 @@ class ModeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate")
         super.onCreate(savedInstanceState)
-        (context?.applicationContext as MyApplication).getWebComponent().inject(this)
+        (context?.applicationContext as AppComponent).getWebComponent().inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, sis: Bundle?): View {

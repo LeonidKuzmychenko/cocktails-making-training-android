@@ -7,35 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import lk.game.cocktails.R
 import lk.game.cocktails.TAG
+import lk.game.cocktails.application.BaseFragment
 import lk.game.cocktails.databinding.FragmentLoadBinding
 
-class LoadFragment : Fragment() {
+class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
 
-    private lateinit var binding: FragmentLoadBinding
-    private lateinit var viewModel: LoadViewModel
     private lateinit var activity: AppCompatActivity
 
     override fun onAttach(context: Context) {
         Log.d(TAG, "onAttach")
         super.onAttach(context)
         activity = context as AppCompatActivity
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        sis: Bundle?
-    ): View? {
-        this.binding = FragmentLoadBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +36,6 @@ class LoadFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.d(TAG, "onActivityCreated")
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LoadViewModel::class.java)
         CoroutineScope(Dispatchers.IO).launch {
             Thread.sleep(2000)
             CoroutineScope(Dispatchers.Main).launch {
@@ -59,6 +46,14 @@ class LoadFragment : Fragment() {
                 ).navigate(R.id.modeFragment)
             }
         }
+    }
+
+    override fun inflate(inflater: LayoutInflater, container: ViewGroup?): FragmentLoadBinding {
+        return FragmentLoadBinding.inflate(inflater, container, false)
+    }
+
+    override fun getViewModel(): Class<LoadViewModel> {
+        return LoadViewModel::class.java
     }
 
 }

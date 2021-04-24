@@ -9,12 +9,6 @@ import javax.inject.Singleton
 @Module
 class AppModule(private val mApplication: Application) {
 
-//    @Provides
-//    @Singleton
-//    fun providesApplication(): Application {
-//        return mApplication
-//    }
-
     @Provides
     @Singleton
     fun providesApplicationContext(): Context {
