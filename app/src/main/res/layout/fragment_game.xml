@@ -35,7 +35,7 @@
             android:id="@+id/cocktailDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TextView\nTextView\nTextView\nTextView"
+            tools:text="TextView\nTextView\nTextView\nTextView"
             android:textColor="@color/black" />
     </androidx.core.widget.NestedScrollView>
 
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline7"
         app:layout_constraintVertical_bias="1.0"
         app:spanCount="2"
-        tools:itemCount="2"
+        tools:itemCount="14"
         tools:listitem="@layout/item_ingredient" />
 
     <androidx.constraintlayout.widget.Guideline
