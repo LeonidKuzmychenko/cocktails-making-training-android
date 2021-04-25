@@ -21,5 +21,4 @@ class ApiRepository(private val api: Api, private val sp: SharedPreferencesServi
         return cocktail
     }
 
-
 }

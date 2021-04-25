@@ -8,7 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import lk.game.cocktails.application.AppComponent
-import lk.game.cocktails.application.BaseActivity
+import lk.game.cocktails.base.BaseActivity
 import lk.game.cocktails.databinding.ActivityMainBinding
 import lk.game.cocktails.shared.SharedPreferencesService
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         super.onCreate(savedInstanceState)
         (application as AppComponent).getWebComponent().inject(this)
         configurationActionBar()
-        sp.clearExcludeList()
+        sp.clearExcludeList() //TODO remove on prod
     }
 
     override fun onSupportNavigateUp(): Boolean {

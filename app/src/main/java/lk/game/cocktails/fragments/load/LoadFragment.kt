@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import lk.game.cocktails.TAG
 import lk.game.cocktails.application.AppComponent
-import lk.game.cocktails.application.BaseFragment
+import lk.game.cocktails.base.BaseFragment
 import lk.game.cocktails.databinding.FragmentLoadBinding
 import lk.game.cocktails.retrofit.Api
 import java.net.SocketTimeoutException

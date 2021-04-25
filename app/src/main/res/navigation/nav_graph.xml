@@ -48,9 +48,13 @@
     <dialog
         android:id="@+id/dialogInfoCocktail"
         android:name="lk.game.cocktails.fragments.dialogs.DialogInfoCocktail"
-        android:label="DialogInfoCocktail">
+        android:label="DialogInfoCocktail"
+        tools:layout="@layout/dialog_cocktail_info">
         <argument
-            android:name="cocktail"
+            android:name="COCKTAIL"
             app:argType="lk.game.cocktails.retrofit.data.Cocktail" />
+        <argument
+            android:name="SERVER_NAME"
+            app:argType="string" />
     </dialog>
 </navigation>

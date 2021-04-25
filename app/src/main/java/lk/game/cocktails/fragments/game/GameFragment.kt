@@ -9,7 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import lk.game.cocktails.R
 import lk.game.cocktails.application.AppComponent
-import lk.game.cocktails.application.BaseFragment
+import lk.game.cocktails.base.BaseFragment
 import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.FragmentGameBinding
@@ -18,7 +18,6 @@ import lk.game.cocktails.fragments.game.observers.GameCocktailObserver
 import lk.game.cocktails.fragments.game.observers.GameFirstRunObserver
 import lk.game.cocktails.retrofit.repository.ApiRepository
 import javax.inject.Inject
-
 
 class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNextCocktail {
 
@@ -45,7 +44,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
         super.onViewCreated(view, savedInstanceState)
         viewModel.cocktails.observe(
             viewLifecycleOwner,
-            GameCocktailObserver(baseActivity(), binding, viewModel.checkers, serverName)
+            GameCocktailObserver(binding, viewModel.checkers, serverName)
         )
         viewModel.firstRun.observe(
             viewLifecycleOwner,
@@ -63,7 +62,10 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
             R.id.nextCocktail -> nextCocktail()
             R.id.infoCocktail -> {
                 val cocktail = viewModel.cocktails.value!!
-                val action = GameFragmentDirections.actionGameFragmentToDialogInfoCocktail(cocktail)
+                val action = GameFragmentDirections.actionGameFragmentToDialogInfoCocktail(
+                    cocktail,
+                    serverName
+                )
                 Navigation.findNavController(requireView()).navigate(action)
                 true
             }

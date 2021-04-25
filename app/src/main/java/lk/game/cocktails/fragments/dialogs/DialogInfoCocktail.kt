@@ -2,53 +2,39 @@ package lk.game.cocktails.fragments.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import lk.game.cocktails.base.BaseDialogFragment
 import lk.game.cocktails.databinding.DialogCocktailInfoBinding
 import lk.game.cocktails.retrofit.data.Cocktail
+import lk.game.cocktails.utils.DirectionKeys
 
+class DialogInfoCocktail : BaseDialogFragment<DialogCocktailInfoBinding>() {
 
-class DialogInfoCocktail : DialogFragment() {
-
-    private lateinit var binding: DialogCocktailInfoBinding
     private lateinit var cocktail: Cocktail
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        binding = DialogCocktailInfoBinding.inflate(LayoutInflater.from(context))
-    }
+    private lateinit var serverName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        cocktail = requireArguments().get("cocktail") as Cocktail
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, sis: Bundle?): View {
-        binding = DialogCocktailInfoBinding.inflate(inflater, container, false)
-        return binding.root
+        cocktail = requireArguments().get(DirectionKeys.COCKTAIL.name) as Cocktail
+        serverName = requireArguments().get(DirectionKeys.SERVER_NAME.name) as String
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity).setView(binding.root)
         setTitle(binding.cocktailTitle)
         setImage(binding.cocktailImage)
         setDescription(binding.cocktailDescription)
-        return builder.create()
+        return AlertDialog.Builder(baseActivity()).setView(binding.root).create()
     }
 
     private fun setImage(imageView: ImageView) {
-        val imagePath = "http://cocktails-making-training.herokuapp.com" + cocktail.photo
-        Glide.with(requireContext())
-            .load(imagePath)
+        Glide.with(baseActivity())
+            .load(serverName + cocktail.photo)
             .fitCenter()
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(imageView)
@@ -81,6 +67,10 @@ class DialogInfoCocktail : DialogFragment() {
             description.append("\n\nПримечание: $note")
         }
         return description.toString()
+    }
+
+    override fun inflate(inflater: LayoutInflater): DialogCocktailInfoBinding {
+        return DialogCocktailInfoBinding.inflate(inflater)
     }
 
 }
