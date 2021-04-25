@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_gameFragment_to_dialogInfoCocktail"
             app:destination="@id/dialogInfoCocktail" />
+        <action
+            android:id="@+id/action_gameFragment_to_dialogWinCocktail"
+            app:destination="@id/dialogWinCocktail" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
@@ -54,4 +57,9 @@
             android:name="COCKTAIL"
             app:argType="lk.game.cocktails.retrofit.data.Cocktail" />
     </dialog>
+    <dialog
+        android:id="@+id/dialogWinCocktail"
+        android:name="lk.game.cocktails.fragments.dialogs.DialogWinCocktail"
+        android:label="DialogWinCocktail"
+        tools:layout="@layout/dialog_cocktail_win" />
 </navigation>

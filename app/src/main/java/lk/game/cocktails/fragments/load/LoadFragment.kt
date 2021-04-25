@@ -6,8 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import lk.game.cocktails.TAG
 import lk.game.cocktails.application.AppComponent
@@ -15,8 +15,10 @@ import lk.game.cocktails.application.BaseFragment
 import lk.game.cocktails.databinding.FragmentLoadBinding
 import lk.game.cocktails.retrofit.Api
 import java.net.SocketTimeoutException
+import java.util.*
 import java.util.concurrent.TimeoutException
 import javax.inject.Inject
+import kotlin.math.abs
 
 class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
 
@@ -32,9 +34,15 @@ class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.d(TAG, "onActivityCreated")
         super.onActivityCreated(savedInstanceState)
-        CoroutineScope(Dispatchers.IO).launch {
+        GlobalScope.launch(Dispatchers.IO) {
+            val before = Date()
             waitServerStart()
-            CoroutineScope(Dispatchers.Main).launch {
+            val after = Date()
+            val wait = 6600 - abs(after.time - before.time)
+            if (wait > 0) {
+                Thread.sleep(wait)
+            }
+            GlobalScope.launch(Dispatchers.Main) {
                 baseActivity().supportActionBar!!.show()
                 val action = LoadFragmentDirections.actionLoadFragmentToMenuFragment()
                 Navigation.findNavController(requireView()).navigate(action)

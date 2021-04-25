@@ -63,8 +63,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
             R.id.infoCocktail -> {
                 val cocktail = viewModel.cocktails.value!!
                 val action = GameFragmentDirections.actionGameFragmentToDialogInfoCocktail(
-                    cocktail,
-                    serverName
+                    cocktail
                 )
                 Navigation.findNavController(requireView()).navigate(action)
                 true

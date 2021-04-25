@@ -92,6 +92,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:2.31.2"
     kapt "com.google.dagger:dagger-android-processor:2.31.2"
 
+    implementation "com.airbnb.android:lottie:3.7.0"
+
 //    Kodein (DI)*
 //    implementation "org.kodein.di:kodein-di-generic-jvm:6.5.5"
 //    implementation "org.kodein.di:kodein-di-framework-android-x:6.5.5"
