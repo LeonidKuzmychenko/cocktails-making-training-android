@@ -33,6 +33,10 @@ data class Cocktail(
     @Expose
     var garnish: String,
 
+    @SerializedName("photo")
+    @Expose
+    var photo: String,
+
     @SerializedName("ingredients")
     @Expose
     var ingredients: List<Ingredient>

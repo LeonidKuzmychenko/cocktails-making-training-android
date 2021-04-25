@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_favorite"
-        android:icon="@drawable/ic_launcher_background"
+        android:id="@+id/nextCocktail"
+        android:icon="@drawable/check_circle_outline"
         android:title="ok"
         app:showAsAction="always"/>
 

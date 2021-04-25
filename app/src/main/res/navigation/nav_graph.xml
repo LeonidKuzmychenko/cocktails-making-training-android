@@ -29,7 +29,6 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="lk.game.cocktails.fragments.game.GameFragment"
-        android:label="Игра"
         tools:layout="@layout/fragment_game" />
     <fragment
         android:id="@+id/menuFragment"

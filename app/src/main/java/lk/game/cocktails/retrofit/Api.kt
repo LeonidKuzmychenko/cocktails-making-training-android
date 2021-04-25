@@ -10,7 +10,6 @@ interface Api {
 
     @GET("/ui/cocktail/one")
     suspend fun getCocktail(
-        @Query("locale") locale: String,
         @Query("exclude") exclude: String,
         @Query("iSize") iSize: Long
     ): Response<Cocktail>

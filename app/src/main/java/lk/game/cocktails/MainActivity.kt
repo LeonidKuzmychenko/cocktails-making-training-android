@@ -34,6 +34,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         super.onCreate(savedInstanceState)
         (application as AppComponent).getWebComponent().inject(this)
         configurationActionBar()
+        sp.clearExcludeList()
         Log.d(TAG, "Api: $api")
         Log.d(TAG, "Locale: $locale")
         Log.d(TAG, "SharedPreferencesService data: ${sp.getExcludeList()}")
