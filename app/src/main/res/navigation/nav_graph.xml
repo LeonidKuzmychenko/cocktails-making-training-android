@@ -53,8 +53,5 @@
         <argument
             android:name="COCKTAIL"
             app:argType="lk.game.cocktails.retrofit.data.Cocktail" />
-        <argument
-            android:name="SERVER_NAME"
-            app:argType="string" />
     </dialog>
 </navigation>

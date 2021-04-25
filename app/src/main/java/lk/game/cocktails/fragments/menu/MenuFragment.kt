@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import lk.game.cocktails.base.BaseFragment
+import lk.game.cocktails.application.BaseFragment
 import lk.game.cocktails.databinding.FragmentMenuBinding
 
 class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>() {
