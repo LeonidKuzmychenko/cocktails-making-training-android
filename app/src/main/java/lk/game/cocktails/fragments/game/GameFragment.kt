@@ -29,7 +29,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
     @Qualifier(Keys.SERVER_NAME)
     lateinit var serverName: String
 
-    private val INGREDIENT_SIZE: Long = 14
+    private val INGREDIENT_SIZE: Long = 12
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
