@@ -29,16 +29,28 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="lk.game.cocktails.fragments.game.GameFragment"
-        tools:layout="@layout/fragment_game" />
+        tools:layout="@layout/fragment_game">
+        <action
+            android:id="@+id/action_gameFragment_to_dialogInfoCocktail"
+            app:destination="@id/dialogInfoCocktail" />
+    </fragment>
     <fragment
         android:id="@+id/menuFragment"
         android:name="lk.game.cocktails.fragments.menu.MenuFragment"
         android:label="Меню"
-        tools:layout="@layout/fragment_menu" >
+        tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_modeFragment"
             app:destination="@id/modeFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/menuFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/dialogInfoCocktail"
+        android:name="lk.game.cocktails.fragments.dialogs.DialogInfoCocktail"
+        android:label="DialogInfoCocktail">
+        <argument
+            android:name="cocktail"
+            app:argType="lk.game.cocktails.retrofit.data.Cocktail" />
+    </dialog>
 </navigation>

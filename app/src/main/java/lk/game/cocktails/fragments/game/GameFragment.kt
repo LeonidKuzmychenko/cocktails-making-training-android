@@ -3,7 +3,7 @@ package lk.game.cocktails.fragments.game
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
+import androidx.navigation.Navigation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -62,7 +62,9 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
         return when (item.itemId) {
             R.id.nextCocktail -> nextCocktail()
             R.id.infoCocktail -> {
-                Toast.makeText(context, "INFO", Toast.LENGTH_SHORT).show()
+                val cocktail = viewModel.cocktails.value!!
+                val action = GameFragmentDirections.actionGameFragmentToDialogInfoCocktail(cocktail)
+                Navigation.findNavController(requireView()).navigate(action)
                 true
             }
             else -> false

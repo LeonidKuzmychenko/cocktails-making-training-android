@@ -34,29 +34,7 @@ class GameCocktailObserver(
             .into(binding.cocktailImage)
         activity.supportActionBar!!.title = cocktail.name
         activity.supportActionBar!!.subtitle = cocktail.association
-
-        val type = cocktail.type
-        val method = cocktail.method
-        val garnish = cocktail.garnish
-        val note = cocktail.note
-
-        val description = StringBuilder()
-        if (type.trim().isNotEmpty() && type.trim() != "-") {
-            description.append("Тип коктейля: $type")
-        }
-        if (method.trim().isNotEmpty() && method.trim() != "-") {
-            description.append("\n\nМетод приготовления: $method")
-        }
-        if (garnish.trim().isNotEmpty() && garnish.trim() != "-") {
-            description.append("\n\nУкрашение: $garnish")
-        }
-        if (note.trim().isNotEmpty() && note.trim() != "-") {
-            description.append("\n\nПримечание: $note")
-        }
-
-//        binding.cocktailDescription.text = description.toString()
-        binding.ingredientsList.adapter =
-            GameRecyclerViewAdapter(cocktail.ingredients, checkers)
+        binding.ingredientsList.adapter = GameRecyclerViewAdapter(cocktail.ingredients, checkers)
     }
 
 }

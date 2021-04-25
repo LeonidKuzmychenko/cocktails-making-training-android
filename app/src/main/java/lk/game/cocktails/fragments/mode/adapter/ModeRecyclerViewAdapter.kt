@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import lk.game.cocktails.databinding.ItemChooseModeBinding
+import lk.game.cocktails.databinding.ItemModeBinding
 import lk.game.cocktails.fragments.mode.ModeFragmentDirections
 import lk.game.cocktails.retrofit.data.Mode
 
 class ModeRecyclerViewAdapter(private val values: List<Mode>) :
     RecyclerView.Adapter<ModeRecyclerViewAdapter.ModeViewHolder>() {
 
-    class ModeViewHolder(val binding: ItemChooseModeBinding) : RecyclerView.ViewHolder(binding.root)
+    class ModeViewHolder(val binding: ItemModeBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val itemView = ItemChooseModeBinding.inflate(inflater, parent, false)
+        val itemView = ItemModeBinding.inflate(inflater, parent, false)
         return ModeViewHolder(itemView)
     }
 
