@@ -16,4 +16,7 @@ interface Api {
 
     @GET("/ui/mode/all")
     suspend fun getModes(): Response<List<Mode>>
+
+    @GET("/status")
+    suspend fun status(): Response<Void>
 }

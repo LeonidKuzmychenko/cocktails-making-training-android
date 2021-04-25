@@ -1,12 +1,11 @@
 package lk.game.cocktails.fragments.mode
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import lk.game.cocktails.TAG
@@ -22,17 +21,9 @@ class ModeFragment : BaseFragment<FragmentModeBinding, ModeViewModel>() {
     @Inject
     lateinit var api: Api
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(TAG, "onCreate")
-        super.onCreate(savedInstanceState)
-        (context?.applicationContext as AppComponent).getWebComponent().inject(this)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, "onViewCreated")
-        super.onViewCreated(view, savedInstanceState)
-        val title = Navigation.findNavController(requireView()).currentDestination!!.label
-        (activity as AppCompatActivity?)!!.title = title
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as AppComponent).getWebComponent().inject(this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -45,7 +45,10 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.cocktails.observe(viewLifecycleOwner, GameObserver(activity as AppCompatActivity, binding, serverName))
+        viewModel.cocktails.observe(
+            viewLifecycleOwner,
+            GameObserver(activity as AppCompatActivity, binding, serverName)
+        )
         GlobalScope.launch {
             nextCocktail()
         }
@@ -85,7 +88,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     private suspend fun getCocktail(): Cocktail? {
         val excludes = sp.getExcludeList()
-        Log.d(TAG,"Excludes = $excludes")
+        Log.d(TAG, "Excludes = $excludes")
         val response = api.getCocktail(excludes.joinToString(","), 12)
         val responseCode = response.code()
         if (responseCode == 215) {

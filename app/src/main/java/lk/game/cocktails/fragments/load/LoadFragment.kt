@@ -1,12 +1,10 @@
 package lk.game.cocktails.fragments.load
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,19 +15,11 @@ import lk.game.cocktails.databinding.FragmentLoadBinding
 
 class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
 
-    private lateinit var activity: AppCompatActivity
-
-    override fun onAttach(context: Context) {
-        Log.d(TAG, "onAttach")
-        super.onAttach(context)
-        activity = context as AppCompatActivity
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity.supportActionBar!!.hide()
-        activity.supportActionBar!!.elevation = 0f
-        activity.title = Navigation.findNavController(view).currentDestination!!.label
+        baseActivity().supportActionBar!!.hide()
+        baseActivity().supportActionBar!!.elevation = 0f
+        baseActivity().title = Navigation.findNavController(view).currentDestination!!.label
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -38,10 +28,9 @@ class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
         CoroutineScope(Dispatchers.IO).launch {
             Thread.sleep(2000)
             CoroutineScope(Dispatchers.Main).launch {
-                activity.supportActionBar!!.show()
-                Navigation.findNavController(requireView())
-                    .navigate(LoadFragmentDirections.actionLoadFragmentToMenuFragment())
-//                    .navigate(R.id.action_loadFragment_to_menuFragment)
+                baseActivity().supportActionBar!!.show()
+                val action = LoadFragmentDirections.actionLoadFragmentToMenuFragment()
+                Navigation.findNavController(requireView()).navigate(action)
             }
         }
     }
