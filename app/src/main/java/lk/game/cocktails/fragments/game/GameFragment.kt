@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import lk.game.cocktails.R
@@ -31,6 +32,8 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     @Qualifier(Keys.SERVER_NAME)
     lateinit var serverName: String
 
+    private val INGREDIENT_SIZE: Long = 14
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as AppComponent).getWebComponent().inject(this)
@@ -45,9 +48,16 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.cocktails.observe(
             viewLifecycleOwner,
-            GameObserver(baseActivity(), binding, serverName)
+            GameObserver(baseActivity(), binding, viewModel, serverName)
         )
-        nextCocktail()
+        viewModel.firstRun.observe( //TODO
+            viewLifecycleOwner, {
+                if (it) {
+                    nextCocktail()
+                    viewModel.firstRun.value = false
+                }
+            }
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -56,7 +66,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.nextCocktail -> nextCocktail()
             R.id.infoCocktail -> {
                 Toast.makeText(context, "INFO", Toast.LENGTH_SHORT).show()
@@ -80,14 +90,20 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     private fun nextCocktail(): Boolean {
         GlobalScope.launch {
-            viewModel.cocktails.postValue(getCocktail())
+            val cocktail = getCocktail()
+            GlobalScope.launch(Dispatchers.Main) {
+                viewModel.checkers.value = mutableListOf()
+                for (i in 0..INGREDIENT_SIZE)
+                    viewModel.checkers.value!!.add(false)
+            }
+            viewModel.cocktails.postValue(cocktail)
         }
         return true
     }
 
     private suspend fun getCocktail(): Cocktail {
         val excludes = sp.getExcludeList().joinToString(",")
-        val response = api.getCocktail(excludes, 14)
+        val response = api.getCocktail(excludes, INGREDIENT_SIZE)
         val responseCode = response.code()
         if (responseCode == 215) {
             throw RuntimeException("You are win!!!")

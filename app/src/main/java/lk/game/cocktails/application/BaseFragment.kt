@@ -20,6 +20,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         baseActivity = context as AppCompatActivity
+        viewModel = ViewModelProvider(this).get(getViewModel())
     }
 
     override fun onResume() {
@@ -32,11 +33,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, sis: Bundle?): View {
         binding = inflate(inflater, container)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(getViewModel())
     }
 
     override fun onDetach() {

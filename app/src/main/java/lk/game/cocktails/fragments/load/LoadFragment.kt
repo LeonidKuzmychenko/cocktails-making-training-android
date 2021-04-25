@@ -14,6 +14,7 @@ import lk.game.cocktails.application.AppComponent
 import lk.game.cocktails.application.BaseFragment
 import lk.game.cocktails.databinding.FragmentLoadBinding
 import lk.game.cocktails.retrofit.Api
+import java.net.SocketTimeoutException
 import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 
@@ -45,6 +46,8 @@ class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
         try {
             return api.status().code() == 200
         } catch (e: TimeoutException) {
+            e.printStackTrace()
+        } catch (e: SocketTimeoutException) {
             e.printStackTrace()
         }
         return waitServerStart()
