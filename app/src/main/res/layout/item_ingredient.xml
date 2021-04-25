@@ -16,5 +16,7 @@
         android:layout_height="match_parent"
         android:padding="8dp"
         tools:text="Ангостура Биттер"
-        android:gravity="center_vertical|center_horizontal"/>
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@color/app_card"
+        android:textColor="@color/black"/>
 </androidx.cardview.widget.CardView>

@@ -86,7 +86,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     private suspend fun getCocktail(): Cocktail? {
         val excludes = sp.getExcludeList()
         Log.d(TAG,"Excludes = $excludes")
-        val response = api.getCocktail(excludes.joinToString(","), 12)
+        val response = api.getCocktail(excludes.joinToString(","), 14)
         val responseCode = response.code()
         if (responseCode == 215) {
             throw RuntimeException("You are win!!!")
