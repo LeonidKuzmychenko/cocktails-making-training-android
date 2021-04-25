@@ -3,6 +3,7 @@ package lk.game.cocktails.fragments.game
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import lk.game.cocktails.R
@@ -55,7 +56,14 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.nextCocktail) nextCocktail() else false
+        return when(item.itemId){
+            R.id.nextCocktail -> nextCocktail()
+            R.id.infoCocktail -> {
+                Toast.makeText(context, "INFO", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> false
+        }
     }
 
     override fun inflate(inflater: LayoutInflater, container: ViewGroup?): FragmentGameBinding {
@@ -64,6 +72,10 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     override fun getViewModel(): Class<GameViewModel> {
         return GameViewModel::class.java
+    }
+
+    override fun clearSubTitle(): Boolean {
+        return false
     }
 
     private fun nextCocktail(): Boolean {
@@ -75,7 +87,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     private suspend fun getCocktail(): Cocktail {
         val excludes = sp.getExcludeList().joinToString(",")
-        val response = api.getCocktail(excludes, 12)
+        val response = api.getCocktail(excludes, 14)
         val responseCode = response.code()
         if (responseCode == 215) {
             throw RuntimeException("You are win!!!")
@@ -87,4 +99,5 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         sp.addExclude(cocktail!!.id)
         return cocktail
     }
+
 }

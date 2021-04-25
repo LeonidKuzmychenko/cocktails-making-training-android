@@ -3,9 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/infoCocktail"
+        android:icon="@drawable/alert_circle_outline"
+        android:title="info"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/nextCocktail"
-        android:icon="@drawable/check_circle_outline"
-        android:title="ok"
-        app:showAsAction="always"/>
+        android:icon="@drawable/check_bold"
+        android:title="confirm"
+        app:showAsAction="ifRoom"/>
 
 </menu>

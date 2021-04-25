@@ -68,5 +68,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             R.id.menuFragment
         ).build()
         setupActionBarWithNavController(getNavController(), appBarConfiguration)
+        supportActionBar!!.elevation = 0f
     }
 }

@@ -20,18 +20,35 @@ class GameObserver(
 
     @SuppressLint("SetTextI18n")
     override fun onChanged(cocktail: Cocktail) {
-        val imagePath = serverName + cocktail?.photo?.substring(1, cocktail.photo.lastIndex + 1)
+        val imagePath = serverName + cocktail.photo.substring(1, cocktail.photo.lastIndex + 1)
         Log.d(TAG, "Photo = $imagePath")
         Glide.with(binding.cocktailImage.context)
             .load(imagePath)
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(binding.cocktailImage)
         activity.supportActionBar!!.title = cocktail.name
-        binding.cocktailDescription.text = "Association: ${cocktail.association}\n\n" +
-                "Garnish: ${cocktail.garnish}\n\n" +
-                "Method: ${cocktail.method}\n\n" +
-                "Note: ${cocktail.note}\n\n" +
-                "Type: ${cocktail.type}"
+        activity.supportActionBar!!.subtitle = cocktail.association
+
+        val type = cocktail.type
+        val method = cocktail.method
+        val garnish = cocktail.garnish
+        val note = cocktail.note
+
+        val description = StringBuilder()
+        if (type.trim().isNotEmpty() && type.trim() != "-"){
+            description.append("Тип коктейля: $type")
+        }
+        if (method.trim().isNotEmpty() && method.trim() != "-"){
+            description.append("\n\nМетод приготовления: $method")
+        }
+        if (garnish.trim().isNotEmpty() && garnish.trim() != "-"){
+            description.append("\n\nУкрашение: $garnish")
+        }
+        if (note.trim().isNotEmpty() && note.trim() != "-"){
+            description.append("\n\nПримечание: $note")
+        }
+
+//        binding.cocktailDescription.text = description.toString()
         binding.ingredientsList.adapter = GameRecyclerViewAdapter(cocktail.ingredients)
     }
 

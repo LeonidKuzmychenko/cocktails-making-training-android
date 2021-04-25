@@ -22,6 +22,13 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
         baseActivity = context as AppCompatActivity
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (clearSubTitle()){
+            baseActivity().supportActionBar!!.subtitle = null
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, sis: Bundle?): View {
         binding = inflate(inflater, container)
         return binding.root
@@ -43,5 +50,9 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     protected fun baseActivity(): AppCompatActivity {
         return baseActivity!!
+    }
+
+    protected open fun clearSubTitle(): Boolean {
+        return true
     }
 }
