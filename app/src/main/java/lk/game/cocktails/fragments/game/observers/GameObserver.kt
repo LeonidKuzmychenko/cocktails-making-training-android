@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import lk.game.cocktails.R
 import lk.game.cocktails.TAG
 import lk.game.cocktails.databinding.FragmentGameBinding
 import lk.game.cocktails.fragments.game.adapters.GameRecyclerViewAdapter
@@ -25,6 +26,7 @@ class GameObserver(
         Glide.with(binding.cocktailImage.context)
             .load(imagePath)
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+            .error(R.drawable.error)
             .into(binding.cocktailImage)
         activity.supportActionBar!!.title = cocktail.name
         activity.supportActionBar!!.subtitle = cocktail.association
