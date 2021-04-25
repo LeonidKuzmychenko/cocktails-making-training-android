@@ -39,7 +39,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     abstract fun inflate(inflater: LayoutInflater, container: ViewGroup?): VB
 
-    abstract fun getViewModel(): Class<VM>
+    abstract fun getViewModel(): Class<VM> //TODO
 
     protected fun baseActivity(): AppCompatActivity {
         return baseActivity!!

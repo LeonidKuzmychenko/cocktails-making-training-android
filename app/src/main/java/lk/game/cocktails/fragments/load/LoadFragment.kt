@@ -48,10 +48,9 @@ class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
         }
     }
 
-    private suspend fun waitServerStart() {
+    private suspend fun waitServerStart(): Boolean {
         try {
-            if (api.status().code() == 200)
-                return
+            return api.status().code() == 200
         } catch (e: TimeoutException) {
             e.printStackTrace()
         }
