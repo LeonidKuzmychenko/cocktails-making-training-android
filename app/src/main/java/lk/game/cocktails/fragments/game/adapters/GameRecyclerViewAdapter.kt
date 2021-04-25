@@ -13,14 +13,7 @@ import lk.game.cocktails.retrofit.data.Ingredient
 class GameRecyclerViewAdapter(
     private val values: List<Ingredient>,
     private val checkers: MutableLiveData<MutableList<Boolean>>
-) :
-    RecyclerView.Adapter<GameRecyclerViewAdapter.GameViewHolder>() {
-
-//    private var checkers: MutableList<Boolean> = mutableListOf()
-//
-//    init {
-//        values.forEach { _ -> checkers.add(false) }
-//    }
+) : RecyclerView.Adapter<GameRecyclerViewAdapter.GameViewHolder>() {
 
     class GameViewHolder(val binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root)
 

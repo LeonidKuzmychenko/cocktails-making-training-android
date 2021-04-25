@@ -13,20 +13,17 @@ import lk.game.cocktails.application.BaseFragment
 import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.FragmentGameBinding
-import lk.game.cocktails.fragments.game.observers.GameObserver
-import lk.game.cocktails.retrofit.Api
-import lk.game.cocktails.retrofit.data.Cocktail
-import lk.game.cocktails.shared.SharedPreferencesService
+import lk.game.cocktails.fragments.game.interfaces.GameNextCocktail
+import lk.game.cocktails.fragments.game.observers.GameCocktailObserver
+import lk.game.cocktails.fragments.game.observers.GameFirstRunObserver
+import lk.game.cocktails.retrofit.repository.ApiRepository
 import javax.inject.Inject
 
 
-class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
+class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNextCocktail {
 
     @Inject
-    lateinit var api: Api
-
-    @Inject
-    lateinit var sp: SharedPreferencesService
+    lateinit var apiRepository: ApiRepository
 
     @Inject
     @Qualifier(Keys.SERVER_NAME)
@@ -48,15 +45,11 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.cocktails.observe(
             viewLifecycleOwner,
-            GameObserver(baseActivity(), binding, viewModel, serverName)
+            GameCocktailObserver(baseActivity(), binding, viewModel.checkers, serverName)
         )
-        viewModel.firstRun.observe( //TODO
-            viewLifecycleOwner, {
-                if (it) {
-                    nextCocktail()
-                    viewModel.firstRun.value = false
-                }
-            }
+        viewModel.firstRun.observe(
+            viewLifecycleOwner,
+            GameFirstRunObserver(this, viewModel.firstRun)
         )
     }
 
@@ -88,9 +81,9 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         return false
     }
 
-    private fun nextCocktail(): Boolean {
+    override fun nextCocktail(): Boolean {
         GlobalScope.launch {
-            val cocktail = getCocktail()
+            val cocktail = apiRepository.getCocktail(INGREDIENT_SIZE)
             GlobalScope.launch(Dispatchers.Main) {
                 viewModel.checkers.value = mutableListOf()
                 for (i in 0..INGREDIENT_SIZE)
@@ -99,21 +92,6 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
             viewModel.cocktails.postValue(cocktail)
         }
         return true
-    }
-
-    private suspend fun getCocktail(): Cocktail {
-        val excludes = sp.getExcludeList().joinToString(",")
-        val response = api.getCocktail(excludes, INGREDIENT_SIZE)
-        val responseCode = response.code()
-        if (responseCode == 215) {
-            throw RuntimeException("You are win!!!")
-        }
-        if (responseCode != 200) {
-            throw RuntimeException("ERROR")
-        }
-        val cocktail = response.body()
-        sp.addExclude(cocktail!!.id)
-        return cocktail
     }
 
 }

@@ -1,15 +1,11 @@
-package lk.game.cocktails.dagger.modules
+package lk.game.cocktails.dagger.modules.web
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
-import lk.game.cocktails.retrofit.Api
 import lk.game.cocktails.retrofit.converters.NullOnEmptyConverterFactory
-import lk.game.cocktails.retrofit.repository.ApiRepository
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,34 +13,27 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
-class WebModule {
+class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(
-        @Qualifier(Keys.SERVER_NAME) host: String,
-        okHttpClient: OkHttpClient
-    ): Retrofit {
+    fun provideRetrofit(@Qualifier(Keys.SERVER_NAME) host: String, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(host)
             .addConverterFactory(NullOnEmptyConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
+            .client(client)
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(
-        logger: HttpLoggingInterceptor,
-        headerLocale: Interceptor
-    ): OkHttpClient {
+    fun provideOkHttpClient(logger: HttpLoggingInterceptor, header: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(logger)
-            .addInterceptor(headerLocale)
+            .addInterceptor(header)
             .build()
     }
 
@@ -61,25 +50,6 @@ class WebModule {
     @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideApi(retrofit: Retrofit): Api {
-        return retrofit.create(Api::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideApiRepository(api: Api): ApiRepository {
-        return ApiRepository(api)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGson(): Gson {
-        return GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
     }
 
 }

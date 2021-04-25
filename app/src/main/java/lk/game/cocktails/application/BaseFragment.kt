@@ -25,7 +25,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (clearSubTitle()){
+        if (clearSubTitle()) {
             baseActivity().supportActionBar!!.subtitle = null
         }
     }
