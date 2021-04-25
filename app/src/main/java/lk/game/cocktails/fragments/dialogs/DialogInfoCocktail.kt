@@ -7,12 +7,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import lk.game.cocktails.databinding.DialogCocktailInfoBinding
 import lk.game.cocktails.retrofit.data.Cocktail
+
 
 class DialogInfoCocktail : DialogFragment() {
 
@@ -35,17 +38,31 @@ class DialogInfoCocktail : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
-        builder.setTitle(cocktail.name)
-        builder.setView(binding.root)
+        val builder = AlertDialog.Builder(activity).setView(binding.root)
+        setTitle(binding.cocktailTitle)
+        setImage(binding.cocktailImage)
+        setDescription(binding.cocktailDescription)
+        return builder.create()
+    }
 
+    private fun setImage(imageView: ImageView) {
         val imagePath = "http://cocktails-making-training.herokuapp.com" + cocktail.photo
         Glide.with(requireContext())
             .load(imagePath)
             .fitCenter()
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
-            .into(binding.cocktailImage)
+            .into(imageView)
+    }
 
+    private fun setTitle(textView: TextView) {
+        textView.text = cocktail.name
+    }
+
+    private fun setDescription(textView: TextView) {
+        textView.text = getDescription()
+    }
+
+    private fun getDescription(): String {
         val type = cocktail.type
         val method = cocktail.method
         val garnish = cocktail.garnish
@@ -63,14 +80,7 @@ class DialogInfoCocktail : DialogFragment() {
         if (note.trim().isNotEmpty() && note.trim() != "-") {
             description.append("\n\nПримечание: $note")
         }
-        binding.cocktailDescription.text = description.toString()
-
-        return builder.create()
+        return description.toString()
     }
 
-    //    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        return AlertDialog.Builder(requireActivity())
-//            .setView(binding.root)
-//            .create()
-//    }
 }

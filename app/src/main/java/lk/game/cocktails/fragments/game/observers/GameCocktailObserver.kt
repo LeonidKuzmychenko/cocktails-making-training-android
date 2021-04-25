@@ -34,6 +34,7 @@ class GameCocktailObserver(
             .into(binding.cocktailImage)
         activity.supportActionBar!!.title = cocktail.name
         activity.supportActionBar!!.subtitle = cocktail.association
+//        binding.ingredientsList.itemAnimator = null
         binding.ingredientsList.adapter = GameRecyclerViewAdapter(cocktail.ingredients, checkers)
     }
 
