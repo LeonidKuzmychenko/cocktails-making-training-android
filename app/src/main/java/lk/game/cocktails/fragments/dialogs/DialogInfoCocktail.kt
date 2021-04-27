@@ -5,7 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
-import lk.game.cocktails.application.BaseDialogFragment
+import lk.game.cocktails.base.BaseDialogFragment
 import lk.game.cocktails.databinding.DialogCocktailInfoBinding
 import lk.game.cocktails.retrofit.data.Cocktail
 import lk.game.cocktails.utils.DirectionKeys

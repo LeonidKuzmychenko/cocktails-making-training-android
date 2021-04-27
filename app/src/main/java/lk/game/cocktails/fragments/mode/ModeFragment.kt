@@ -10,7 +10,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import lk.game.cocktails.TAG
 import lk.game.cocktails.application.AppComponent
-import lk.game.cocktails.application.BaseFragment
+import lk.game.cocktails.base.BaseFragment
 import lk.game.cocktails.databinding.FragmentModeBinding
 import lk.game.cocktails.fragments.mode.adapter.ModeRecyclerViewAdapter
 import lk.game.cocktails.retrofit.Api

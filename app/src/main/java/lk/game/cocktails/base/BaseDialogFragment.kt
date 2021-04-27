@@ -1,4 +1,4 @@
-package lk.game.cocktails.application
+package lk.game.cocktails.base
 
 import android.content.Context
 import android.view.LayoutInflater

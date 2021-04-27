@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
-import lk.game.cocktails.application.BaseDialogFragment
+import lk.game.cocktails.base.BaseDialogFragment
 import lk.game.cocktails.databinding.DialogCocktailWinBinding
 
 class DialogWinCocktail : BaseDialogFragment<DialogCocktailWinBinding>() {

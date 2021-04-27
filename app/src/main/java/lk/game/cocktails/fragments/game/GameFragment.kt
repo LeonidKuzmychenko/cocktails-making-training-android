@@ -9,7 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import lk.game.cocktails.R
 import lk.game.cocktails.application.AppComponent
-import lk.game.cocktails.application.BaseFragment
+import lk.game.cocktails.base.BaseFragment
 import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.FragmentGameBinding

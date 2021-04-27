@@ -2,16 +2,15 @@ package lk.game.cocktails.fragments.load
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import lk.game.cocktails.TAG
 import lk.game.cocktails.application.AppComponent
-import lk.game.cocktails.application.BaseFragment
+import lk.game.cocktails.base.BaseFragment
 import lk.game.cocktails.databinding.FragmentLoadBinding
 import lk.game.cocktails.retrofit.Api
 import java.net.SocketTimeoutException
@@ -31,9 +30,11 @@ class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
         baseActivity().supportActionBar!!.hide()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.d(TAG, "onActivityCreated")
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            binding.progressBar.visibility = View.VISIBLE
+        }
         GlobalScope.launch(Dispatchers.IO) {
             val before = Date()
             waitServerStart()
