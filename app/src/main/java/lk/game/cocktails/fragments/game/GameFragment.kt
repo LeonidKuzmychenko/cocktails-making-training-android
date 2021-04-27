@@ -3,6 +3,7 @@ package lk.game.cocktails.fragments.game
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.navigation.Navigation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -42,7 +43,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.cocktails.observe(
+        viewModel.cocktail.observe(
             viewLifecycleOwner,
             GameCocktailObserver(binding, viewModel.checkers, serverName)
         )
@@ -59,9 +60,12 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.nextCocktail -> nextCocktail()
+            R.id.nextCocktail -> {
+                result()
+                nextCocktail()
+            }
             R.id.infoCocktail -> {
-                val cocktail = viewModel.cocktails.value!!
+                val cocktail = viewModel.cocktail.value!!
                 val action = GameFragmentDirections.actionGameFragmentToDialogInfoCocktail(
                     cocktail
                 )
@@ -92,9 +96,27 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
                 for (i in 0..INGREDIENT_SIZE)
                     viewModel.checkers.value!!.add(false)
             }
-            viewModel.cocktails.postValue(cocktail)
+            viewModel.cocktail.postValue(cocktail)
         }
         return true
+    }
+
+    private fun result() {
+        val cocktail = viewModel.cocktail.value
+        val states = viewModel.checkers.value!!
+
+        var isError = false
+        for (i in 0 until INGREDIENT_SIZE) {
+            if (cocktail!!.ingredients[i.toInt()].consists != states[i.toInt()]) {
+                isError = true
+            }
+        }
+
+        if (isError) {
+            Toast.makeText(baseActivity(), "NOT", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(baseActivity(), "YES", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
