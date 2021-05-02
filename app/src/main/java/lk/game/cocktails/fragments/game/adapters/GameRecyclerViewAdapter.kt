@@ -30,7 +30,7 @@ class GameRecyclerViewAdapter(
         colorMapper.set(checkers.value!![position], textView)
         fragment.viewModel.result.observe(
             fragment.viewLifecycleOwner,
-            GameResultAdapterObserver(textView, checkers, position)
+            GameResultAdapterObserver(fragment, textView, position)
         )
     }
 

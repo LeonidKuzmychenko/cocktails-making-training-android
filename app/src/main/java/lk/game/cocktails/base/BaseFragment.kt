@@ -44,7 +44,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     abstract fun getViewModel(): Class<VM> //TODO
 
-    protected fun baseActivity(): AppCompatActivity {
+    fun baseActivity(): AppCompatActivity {
         return baseActivity!!
     }
 

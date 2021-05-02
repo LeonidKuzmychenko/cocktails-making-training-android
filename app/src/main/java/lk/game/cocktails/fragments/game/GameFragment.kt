@@ -3,7 +3,6 @@ package lk.game.cocktails.fragments.game
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.navigation.Navigation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -31,7 +30,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
     @Qualifier(Keys.SERVER_NAME)
     lateinit var serverName: String
 
-    private val INGREDIENT_SIZE: Long = 12
+    val INGREDIENT_SIZE: Long = 12
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -66,8 +65,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
             R.id.nextCocktail -> {
                 viewModel.result.value = !viewModel.result.value!!
                 if (!viewModel.result.value!!) {
-                    result()
-                    nextCocktail()
+                    nextCocktail() //TODO
                 }
                 return true
             }
@@ -108,22 +106,22 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
         return true
     }
 
-    private fun result() {
-        val states = viewModel.checkers.value!!
-
-        var isError = false
-        for (i in 0 until INGREDIENT_SIZE) {
-            val consist = viewModel.cocktail.value!!.ingredients[i.toInt()].consists
-            if ((consist && states[i.toInt()] != GameItemState.SELECTED) || (!consist && states[i.toInt()] != GameItemState.CLEAR)) {
-                isError = true
-            }
-        }
-
-        if (isError) {
-            Toast.makeText(baseActivity(), "NOT", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(baseActivity(), "YES", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    private fun result() {
+//        val states = viewModel.checkers.value!!
+//
+//        var isError = false
+//        for (i in 0 until INGREDIENT_SIZE) {
+//            val consist = viewModel.cocktail.value!!.ingredients[i.toInt()].consists
+//            if ((consist && states[i.toInt()] != GameItemState.SELECTED) || (!consist && states[i.toInt()] != GameItemState.CLEAR)) {
+//                isError = true
+//            }
+//        }
+//
+//        if (isError) {
+//            Toast.makeText(baseActivity(), "NOT", Toast.LENGTH_SHORT).show()
+//        } else {
+//            Toast.makeText(baseActivity(), "YES", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
 }
