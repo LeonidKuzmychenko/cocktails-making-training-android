@@ -13,8 +13,8 @@ import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
-    protected lateinit var binding: VB
-    protected lateinit var viewModel: VM
+    lateinit var binding: VB
+    lateinit var viewModel: VM
     private var baseActivity: AppCompatActivity? = null
 
     override fun onAttach(context: Context) {

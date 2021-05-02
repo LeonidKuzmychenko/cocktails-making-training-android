@@ -2,20 +2,17 @@ package lk.game.cocktails.fragments.game.observers
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import lk.game.cocktails.R
-import lk.game.cocktails.databinding.FragmentGameBinding
+import lk.game.cocktails.fragments.game.GameFragment
 import lk.game.cocktails.fragments.game.adapters.GameRecyclerViewAdapter
-import lk.game.cocktails.fragments.game.data.GameItemState
 import lk.game.cocktails.retrofit.data.Cocktail
 
 class GameCocktailObserver(
-    private val binding: FragmentGameBinding,
-    private val checkers: MutableLiveData<MutableList<GameItemState>>,
+    private val fragment: GameFragment,
     private val serverName: String
 ) : Observer<Cocktail> {
 
@@ -31,11 +28,12 @@ class GameCocktailObserver(
             .fitCenter()
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .error(ContextCompat.getDrawable(getActivity(), R.drawable.error))
-            .into(binding.cocktailImage)
+            .into(fragment.binding.cocktailImage)
     }
 
     private fun setAdapter(cocktail: Cocktail) {
-        binding.ingredientsList.adapter = GameRecyclerViewAdapter(cocktail.ingredients, checkers)
+        fragment.binding.ingredientsList.adapter =
+            GameRecyclerViewAdapter(cocktail.ingredients, fragment)
     }
 
     private fun setTitle(cocktail: Cocktail) {
@@ -44,7 +42,7 @@ class GameCocktailObserver(
     }
 
     private fun getActivity(): AppCompatActivity {
-        return binding.root.context as AppCompatActivity
+        return fragment.binding.root.context as AppCompatActivity
     }
 
 }

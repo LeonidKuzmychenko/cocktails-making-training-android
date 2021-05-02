@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,6 +18,7 @@ import lk.game.cocktails.fragments.game.data.GameItemState
 import lk.game.cocktails.fragments.game.interfaces.GameNextCocktail
 import lk.game.cocktails.fragments.game.observers.GameCocktailObserver
 import lk.game.cocktails.fragments.game.observers.GameFirstRunObserver
+import lk.game.cocktails.fragments.game.observers.GameResultObserver
 import lk.game.cocktails.retrofit.repository.ApiRepository
 import javax.inject.Inject
 
@@ -47,7 +47,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
         super.onViewCreated(view, savedInstanceState)
         viewModel.cocktail.observe(
             viewLifecycleOwner,
-            GameCocktailObserver(binding, viewModel.checkers, serverName)
+            GameCocktailObserver(this, serverName)
         )
         viewModel.firstRun.observe(
             viewLifecycleOwner,
@@ -57,18 +57,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_item_game, menu)
-        viewModel.result.observe(
-            viewLifecycleOwner,
-            {
-                val iconId = if (it) {
-                    R.drawable.alert_circle_outline
-                } else {
-                    R.drawable.check_bold
-                }
-                val icon = ContextCompat.getDrawable(baseActivity(), iconId)
-                menu.findItem(R.id.nextCocktail).icon = icon
-            }
-        )
+        viewModel.result.observe(viewLifecycleOwner, GameResultObserver(baseActivity(), menu))
         super.onCreateOptionsMenu(menu, inflater)
     }
 
