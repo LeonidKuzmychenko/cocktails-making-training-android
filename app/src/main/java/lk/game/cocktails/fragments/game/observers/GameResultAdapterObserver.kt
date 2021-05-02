@@ -33,21 +33,23 @@ class GameResultAdapterObserver(
     }
 
     private fun result() {
-        val checkers = fragment.viewModel.checkers
-
         val real = fragment.viewModel.cocktail.value!!.ingredients[position].consists
         val me = fragment.viewModel.checkers.value!![position]
+        val result = getResult(real, me)
 
-        if (real == true && me == GameItemState.SELECTED) {
-            checkers.value!![position] = GameItemState.RIGHT
-        } else if (real == true && me == GameItemState.CLEAR) {
-            checkers.value!![position] = GameItemState.MISSED
-        } else if (real == false && me == GameItemState.SELECTED) {
-            checkers.value!![position] = GameItemState.WRONG
+        fragment.viewModel.checkers.value!![position] = result
+        colorMapper.set(result, textView)
+    }
+
+    private fun getResult(real: Boolean, me: GameItemState): GameItemState {
+        return if (real && me == GameItemState.SELECTED) {
+            GameItemState.RIGHT
+        } else if (real && me == GameItemState.CLEAR) {
+            GameItemState.MISSED
+        } else if (!real && me == GameItemState.SELECTED) {
+            GameItemState.WRONG
+        } else {
+            GameItemState.CLEAR
         }
-
-        colorMapper.set(checkers.value!![position], textView)
-
-
     }
 }
