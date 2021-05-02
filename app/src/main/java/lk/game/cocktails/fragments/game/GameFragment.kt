@@ -15,6 +15,7 @@ import lk.game.cocktails.base.BaseFragment
 import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.FragmentGameBinding
+import lk.game.cocktails.fragments.game.data.GameItemState
 import lk.game.cocktails.fragments.game.interfaces.GameNextCocktail
 import lk.game.cocktails.fragments.game.observers.GameCocktailObserver
 import lk.game.cocktails.fragments.game.observers.GameFirstRunObserver
@@ -29,8 +30,6 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
     @Inject
     @Qualifier(Keys.SERVER_NAME)
     lateinit var serverName: String
-
-    private lateinit var menu: Menu
 
     private val INGREDIENT_SIZE: Long = 12
 
@@ -62,7 +61,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
             viewLifecycleOwner,
             {
                 val iconId = if (it) {
-                    R.drawable.check_bold
+                    R.drawable.alert_circle_outline
                 } else {
                     R.drawable.check_bold
                 }
@@ -77,8 +76,11 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
         return when (item.itemId) {
             R.id.nextCocktail -> {
                 viewModel.result.value = !viewModel.result.value!!
-                result()
-                nextCocktail()
+                if (!viewModel.result.value!!) {
+                    result()
+                    nextCocktail()
+                }
+                return true
             }
             R.id.infoCocktail -> {
                 val cocktail = viewModel.cocktail.value!!

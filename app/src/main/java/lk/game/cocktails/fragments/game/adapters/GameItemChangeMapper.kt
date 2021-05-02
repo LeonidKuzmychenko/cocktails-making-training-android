@@ -1,8 +1,9 @@
-package lk.game.cocktails.fragments.game
+package lk.game.cocktails.fragments.game.adapters
 
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import lk.game.cocktails.R
+import lk.game.cocktails.fragments.game.data.GameItemState
 
 class GameItemChangeMapper {
     fun set(value: GameItemState, text: TextView) {

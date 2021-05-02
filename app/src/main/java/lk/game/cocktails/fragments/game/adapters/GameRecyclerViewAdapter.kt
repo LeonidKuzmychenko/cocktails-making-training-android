@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import lk.game.cocktails.databinding.ItemIngredientBinding
-import lk.game.cocktails.fragments.game.GameItemChangeMapper
-import lk.game.cocktails.fragments.game.GameItemState
+import lk.game.cocktails.fragments.game.data.GameItemState
 import lk.game.cocktails.retrofit.data.Ingredient
 
 class GameRecyclerViewAdapter(
