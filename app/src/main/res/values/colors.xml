@@ -8,14 +8,21 @@
     <!--    <color name="teal_700">#FF018786</color>-->
     <!--    <color name="colorOnPrimary">#FFFFFFFF</color>-->
 
-    <color name="eeeeeeee">#FF00FF</color>
+    <color name="eeeeeeee">#FFFF00FF</color>
+    <color name="eeeeeeee1">#FFEEA38E</color>
+    <color name="eeeeeeee2">#FFE15050</color>
+
+    <color name="wrong">#FFE27272</color>
+    <color name="missed">#FFC5D8C5</color>
+    <color name="right">#FFB6D881</color>
+    <color name="focus">#FFED9C40</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="app_background">#eaeff3</color>
-    <color name="app_card">#f9f8fe</color>
+    <color name="app_background">#FFEAEFF3</color>
+    <color name="app_card">#FFF9F8FE</color>
+    <color name="card_border">#FF7C8185</color>
 
-    <color name="focus_of_attention">#ed9c40</color>
-    <color name="card_border">#7c8185</color>
+
 </resources>

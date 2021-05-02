@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -28,6 +29,8 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
     @Inject
     @Qualifier(Keys.SERVER_NAME)
     lateinit var serverName: String
+
+    private lateinit var menu: Menu
 
     private val INGREDIENT_SIZE: Long = 12
 
@@ -55,12 +58,25 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_item_game, menu)
+        viewModel.result.observe(
+            viewLifecycleOwner,
+            {
+                val iconId = if (it) {
+                    R.drawable.check_bold
+                } else {
+                    R.drawable.check_bold
+                }
+                val icon = ContextCompat.getDrawable(baseActivity(), iconId)
+                menu.findItem(R.id.nextCocktail).icon = icon
+            }
+        )
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.nextCocktail -> {
+                viewModel.result.value = !viewModel.result.value!!
                 result()
                 nextCocktail()
             }
@@ -94,7 +110,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
             GlobalScope.launch(Dispatchers.Main) {
                 viewModel.checkers.value = mutableListOf()
                 for (i in 0..INGREDIENT_SIZE)
-                    viewModel.checkers.value!!.add(false)
+                    viewModel.checkers.value!!.add(GameItemState.CLEAR)
             }
             viewModel.cocktail.postValue(cocktail)
         }
@@ -102,12 +118,12 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
     }
 
     private fun result() {
-        val cocktail = viewModel.cocktail.value
         val states = viewModel.checkers.value!!
 
         var isError = false
         for (i in 0 until INGREDIENT_SIZE) {
-            if (cocktail!!.ingredients[i.toInt()].consists != states[i.toInt()]) {
+            val consist = viewModel.cocktail.value!!.ingredients[i.toInt()].consists
+            if ((consist && states[i.toInt()] != GameItemState.SELECTED) || (!consist && states[i.toInt()] != GameItemState.CLEAR)) {
                 isError = true
             }
         }

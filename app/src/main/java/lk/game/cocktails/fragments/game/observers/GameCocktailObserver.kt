@@ -9,12 +9,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import lk.game.cocktails.R
 import lk.game.cocktails.databinding.FragmentGameBinding
+import lk.game.cocktails.fragments.game.GameItemState
 import lk.game.cocktails.fragments.game.adapters.GameRecyclerViewAdapter
 import lk.game.cocktails.retrofit.data.Cocktail
 
 class GameCocktailObserver(
     private val binding: FragmentGameBinding,
-    private val checkers: MutableLiveData<MutableList<Boolean>>,
+    private val checkers: MutableLiveData<MutableList<GameItemState>>,
     private val serverName: String
 ) : Observer<Cocktail> {
 

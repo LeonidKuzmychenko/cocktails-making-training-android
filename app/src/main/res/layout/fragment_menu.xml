@@ -11,7 +11,7 @@
         android:id="@+id/start"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:backgroundTint="@color/focus_of_attention"
+        android:backgroundTint="@color/focus"
         android:text="Start"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"

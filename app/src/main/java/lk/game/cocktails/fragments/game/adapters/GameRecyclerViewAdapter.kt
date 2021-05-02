@@ -1,19 +1,20 @@
 package lk.game.cocktails.fragments.game.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import lk.game.cocktails.R
 import lk.game.cocktails.databinding.ItemIngredientBinding
+import lk.game.cocktails.fragments.game.GameItemChangeMapper
+import lk.game.cocktails.fragments.game.GameItemState
 import lk.game.cocktails.retrofit.data.Ingredient
 
 class GameRecyclerViewAdapter(
     private val values: List<Ingredient>,
-    private val checkers: MutableLiveData<MutableList<Boolean>>
+    private val checkers: MutableLiveData<MutableList<GameItemState>>
 ) : RecyclerView.Adapter<GameRecyclerViewAdapter.GameViewHolder>() {
+
+    private val colorMapper: GameItemChangeMapper = GameItemChangeMapper()
 
     class GameViewHolder(val binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -25,17 +26,15 @@ class GameRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         holder.binding.textView.text = values[position].name
-        changeColor(holder.binding.textView, position)
+        colorMapper.set(checkers.value!![position], holder.binding.textView)
         holder.binding.textView.setOnClickListener {
-            checkers.value!![position] = !checkers.value!![position]
-            changeColor(it, position)
+            if (checkers.value!![position] == GameItemState.SELECTED) { //TODO
+                checkers.value!![position] = GameItemState.CLEAR
+            } else {
+                checkers.value!![position] = GameItemState.SELECTED
+            }
+            colorMapper.set(checkers.value!![position], holder.binding.textView)
         }
-    }
-
-    private fun changeColor(view: View, position: Int) {
-        val res = if (checkers.value!![position]) R.color.focus_of_attention else R.color.app_card
-        val color = ContextCompat.getColor(view.context, res)
-        view.setBackgroundColor(color)
     }
 
     override fun getItemCount() = values.size
