@@ -2,15 +2,21 @@ package lk.game.cocktails.fragments.game.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import lk.game.cocktails.databinding.ItemIngredientBinding
-import lk.game.cocktails.fragments.game.GameFragment
-import lk.game.cocktails.fragments.game.observers.GameResultAdapterObserver
+import lk.game.cocktails.fragments.game.data.GameItemState
+import lk.game.cocktails.fragments.game.observers.result.GameResultAdapterObserver
+import lk.game.cocktails.retrofit.data.Cocktail
 import lk.game.cocktails.retrofit.data.Ingredient
 
 class GameRecyclerViewAdapter(
-    private val values: List<Ingredient>,
-    private val fragment: GameFragment
+    private val owner: LifecycleOwner,
+    private val cocktail: MutableLiveData<Cocktail>,
+    private val checkers: MutableLiveData<MutableList<GameItemState>>,
+    private val result: MutableLiveData<Boolean>,
+    private val values: List<Ingredient>
 ) : RecyclerView.Adapter<GameRecyclerViewAdapter.GameViewHolder>() {
 
     private val colorMapper: GameItemChangeMapper = GameItemChangeMapper()
@@ -24,14 +30,10 @@ class GameRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
-        val checkers = fragment.viewModel.checkers
         val textView = holder.binding.textView
         textView.text = values[position].name
         colorMapper.set(checkers.value!![position], textView)
-        fragment.viewModel.result.observe(
-            fragment.viewLifecycleOwner,
-            GameResultAdapterObserver(fragment, textView, position)
-        )
+        result.observe(owner, GameResultAdapterObserver(cocktail, checkers, textView, position))
     }
 
     override fun getItemCount() = values.size

@@ -14,14 +14,15 @@ import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.FragmentGameBinding
 import lk.game.cocktails.fragments.game.data.GameItemState
-import lk.game.cocktails.fragments.game.interfaces.GameNextCocktail
-import lk.game.cocktails.fragments.game.observers.GameCocktailObserver
-import lk.game.cocktails.fragments.game.observers.GameFirstRunObserver
-import lk.game.cocktails.fragments.game.observers.GameResultObserver
+import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailAdapterObserver
+import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailImageObserver
+import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailTitleObserver
+import lk.game.cocktails.fragments.game.observers.next.GameFirstRunObserver
+import lk.game.cocktails.fragments.game.observers.next.GameResultObserver
 import lk.game.cocktails.retrofit.repository.ApiRepository
 import javax.inject.Inject
 
-class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNextCocktail {
+class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     @Inject
     lateinit var apiRepository: ApiRepository
@@ -29,8 +30,6 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
     @Inject
     @Qualifier(Keys.SERVER_NAME)
     lateinit var serverName: String
-
-    val INGREDIENT_SIZE: Long = 12
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,19 +43,44 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.cocktail.observe(viewLifecycleOwner, GameCocktailTitleObserver(baseActivity()))
         viewModel.cocktail.observe(
             viewLifecycleOwner,
-            GameCocktailObserver(this, serverName)
+            GameCocktailAdapterObserver(
+                viewLifecycleOwner,
+                viewModel.cocktail,
+                viewModel.checkers,
+                viewModel.result,
+                binding.ingredientsList
+            )
+        )
+        viewModel.cocktail.observe(
+            viewLifecycleOwner,
+            GameCocktailImageObserver(binding.cocktailImage, serverName)
         )
         viewModel.firstRun.observe(
             viewLifecycleOwner,
-            GameFirstRunObserver(this, viewModel.firstRun)
+            GameFirstRunObserver(
+                viewModel.firstRun,
+                viewModel.cocktail,
+                viewModel.checkers,
+                apiRepository
+            )
         )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_item_game, menu)
-        viewModel.result.observe(viewLifecycleOwner, GameResultObserver(baseActivity(), menu))
+        viewModel.result.observe(
+            viewLifecycleOwner,
+            GameResultObserver(
+                baseActivity(),
+                menu,
+                viewModel.cocktail,
+                viewModel.checkers,
+                apiRepository
+            )
+        )
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -65,16 +89,12 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
             R.id.nextCocktail -> {
                 viewModel.result.value = !viewModel.result.value!!
                 if (!viewModel.result.value!!) {
-                    nextCocktail() //TODO
+                    nextCocktail()
                 }
-                return true
+                true
             }
             R.id.infoCocktail -> {
-                val cocktail = viewModel.cocktail.value!!
-                val action = GameFragmentDirections.actionGameFragmentToDialogInfoCocktail(
-                    cocktail
-                )
-                Navigation.findNavController(requireView()).navigate(action)
+                viewCocktailInfo()
                 true
             }
             else -> false
@@ -93,35 +113,21 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>(), GameNex
         return false
     }
 
-    override fun nextCocktail(): Boolean {
+    private fun viewCocktailInfo() {
+        val cocktail = viewModel.cocktail.value!!
+        val action = GameFragmentDirections.actionGameFragmentToDialogInfoCocktail(cocktail)
+        Navigation.findNavController(requireView()).navigate(action)
+    }
+
+    private fun nextCocktail() {
         GlobalScope.launch {
-            val cocktail = apiRepository.getCocktail(INGREDIENT_SIZE)
+            val cocktail = apiRepository.getCocktail(12)
             GlobalScope.launch(Dispatchers.Main) {
                 viewModel.checkers.value = mutableListOf()
-                for (i in 0..INGREDIENT_SIZE)
+                for (i in 0..12)
                     viewModel.checkers.value!!.add(GameItemState.CLEAR)
             }
             viewModel.cocktail.postValue(cocktail)
         }
-        return true
     }
-
-//    private fun result() {
-//        val states = viewModel.checkers.value!!
-//
-//        var isError = false
-//        for (i in 0 until INGREDIENT_SIZE) {
-//            val consist = viewModel.cocktail.value!!.ingredients[i.toInt()].consists
-//            if ((consist && states[i.toInt()] != GameItemState.SELECTED) || (!consist && states[i.toInt()] != GameItemState.CLEAR)) {
-//                isError = true
-//            }
-//        }
-//
-//        if (isError) {
-//            Toast.makeText(baseActivity(), "NOT", Toast.LENGTH_SHORT).show()
-//        } else {
-//            Toast.makeText(baseActivity(), "YES", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
 }

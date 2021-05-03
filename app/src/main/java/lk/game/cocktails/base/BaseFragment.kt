@@ -13,8 +13,8 @@ import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
-    lateinit var binding: VB
-    lateinit var viewModel: VM
+    protected lateinit var binding: VB
+    protected lateinit var viewModel: VM
     private var baseActivity: AppCompatActivity? = null
 
     override fun onAttach(context: Context) {
@@ -35,10 +35,10 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
         return binding.root
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        baseActivity = null
-    }
+//    override fun onDetach() {
+//        super.onDetach()
+//        baseActivity = null
+//    }
 
     abstract fun inflate(inflater: LayoutInflater, container: ViewGroup?): VB
 
