@@ -1,8 +1,8 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "androidx.navigation.safeargs.kotlin"
 }
 
 android {
@@ -21,7 +21,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
     compileOptions {
@@ -37,71 +37,88 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    ext {
+        lifecycleVersion = "2.3.1"
+        retrofitVersion = "2.9.0"
+        coroutinesVersion = "1.5.0"
+        glideVersion = "4.12.0"
+        navigationVersion = "2.3.5"
+        daggerVersion = "2.35.1"
+    }
+
+    implementation "androidx.core:core-ktx:1.5.0"
+    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation "com.google.android.material:material:1.3.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
 
     //Tests
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    //Lifecycle
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-common:2.3.1'
-
-    //Gson (Json) *
-    implementation 'com.google.code.gson:gson:2.8.6'
-
-    //Coroutines*
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
-
-    //Retrofit (HTTP) *
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-
-    //Retrofit + Gson (GsonConverterFactory)*
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
-    //Retrofit Logs (HttpLoggingInterceptor)*
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
-
-    //Retrofit + Coroutines (CoroutineCallAdapterFactory)*
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
-
-    //Pictures*
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    kapt 'com.github.bumptech.glide:compiler:4.12.0'
-
-    //Navigation*
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
-
-    //Dagger2 (DI)*
-    implementation "com.google.dagger:dagger:2.35.1"
-    implementation "com.google.dagger:dagger-android-support:2.35.1"
-    kapt "com.google.dagger:dagger-compiler:2.35.1"
-    kapt "com.google.dagger:dagger-android-processor:2.35.1"
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.2"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
 
     //Lottie
+    //https://mvnrepository.com/artifact/com.airbnb.android/lottie
     implementation "com.airbnb.android:lottie:3.7.0"
+
+    //Gson (Json)
+    //https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation "com.google.code.gson:gson:2.8.7"
+
+    //Retrofit
+    //https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    //Retrofit Logs (HttpLoggingInterceptor)
+    //https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+
+    //Retrofit + Coroutines (CoroutineCallAdapterFactory)
+    //https://mvnrepository.com/artifact/com.jakewharton.retrofit/retrofit2-kotlin-coroutines-adapter
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+
+    //Lifecycle
+    //https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-livedata-ktx
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common:$lifecycleVersion"
+
+    //Coroutines
+    //https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-android
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+
+    //Pictures
+    //https://mvnrepository.com/artifact/com.github.bumptech.glide/glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+
+    //Navigation
+    //https://mvnrepository.com/artifact/androidx.navigation/navigation-fragment-ktx
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+
+    //Dagger2 (DI)
+    //https://mvnrepository.com/artifact/com.google.dagger/dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+}
 
 //    Kodein (DI)*
 //    implementation "org.kodein.di:kodein-di-generic-jvm:6.5.5"
 //    implementation "org.kodein.di:kodein-di-framework-android-x:6.5.5"
 
 //    Room DB(history in datastore branch)
-//    implementation 'androidx.room:room-runtime:2.2.6'
-//    kapt 'androidx.room:room-compiler:2.2.6'
-//    implementation 'androidx.room:room-ktx:2.2.6'
+//    implementation "androidx.room:room-runtime:2.2.6"
+//    kapt "androidx.room:room-compiler:2.2.6"
+//    implementation "androidx.room:room-ktx:2.2.6"
 
 //    DataStore (datastore branch)
 //    Туториал - https://www.simplifiedcoding.net/jetpack-datastore-tutorial/
 //    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha08"
 //    implementation "androidx.datastore:datastore-core:1.0.0-alpha08"
-//    implementation 'com.google.protobuf:protobuf-lite:3.0.1'
-}
+//    implementation "com.google.protobuf:protobuf-lite:3.0.1"

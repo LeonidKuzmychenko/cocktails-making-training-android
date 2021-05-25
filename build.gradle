@@ -3,9 +3,15 @@ buildscript {
         google()
         mavenCentral()
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        //https://archiva.interlocsolutions.com/archiva/repository/internal/com/android/tools/build/gradle/
+        classpath "com.android.tools.build:gradle:4.2.1"
+
+        //https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+
+        //https://mvnrepository.com/artifact/android.arch.navigation/navigation-safe-args-gradle-plugin
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"
     }
 }
