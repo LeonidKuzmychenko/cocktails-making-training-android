@@ -26,9 +26,9 @@ class ModeFragment : BaseFragment<FragmentModeBinding, ModeViewModel>() {
         (context.applicationContext as AppComponent).getWebComponent().inject(this)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.d(TAG, "onActivityCreated")
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d(TAG, "onViewCreated")
+        super.onViewCreated(view, savedInstanceState)
         viewModel.modes.observe(
             viewLifecycleOwner, {
                 binding.progressBar.visibility = View.GONE
