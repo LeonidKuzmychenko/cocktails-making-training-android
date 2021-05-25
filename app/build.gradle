@@ -7,7 +7,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+//    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "lk.game.cocktails"
@@ -56,7 +56,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-common:2.3.1'
-    implementation 'android.arch.lifecycle:extensions:2.2.0'
+//    implementation 'android.arch.lifecycle:extensions:2.2.0'
 
     //Gson (Json) *
     implementation 'com.google.code.gson:gson:2.8.6'
