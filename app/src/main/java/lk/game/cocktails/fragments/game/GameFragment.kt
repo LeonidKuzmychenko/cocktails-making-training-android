@@ -1,5 +1,6 @@
 package lk.game.cocktails.fragments.game
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -14,6 +15,7 @@ import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.FragmentGameBinding
 import lk.game.cocktails.fragments.game.data.GameItemState
+import lk.game.cocktails.fragments.game.listeners.OnSwipeListener
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailAdapterObserver
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailImageObserver
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailTitleObserver
@@ -41,8 +43,10 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         setHasOptionsMenu(true)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.cocktailImage.setOnTouchListener(OnSwipeListener(requireContext()))
         viewModel.cocktail.observe(viewLifecycleOwner, GameCocktailTitleObserver(baseActivity()))
         viewModel.cocktail.observe(
             viewLifecycleOwner,
