@@ -1,6 +1,7 @@
 package lk.game.cocktails
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -11,19 +12,33 @@ import lk.game.cocktails.application.AppComponent
 import lk.game.cocktails.base.BaseActivity
 import lk.game.cocktails.databinding.ActivityMainBinding
 import lk.game.cocktails.shared.SharedPrefCocktailService
+import lk.game.cocktails.statistics.services.SharedPrefStatisticService
 import javax.inject.Inject
 
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     @Inject
-    lateinit var sp: SharedPrefCocktailService
+    lateinit var sharedPrefCocktails: SharedPrefCocktailService
+
+    @Inject
+    lateinit var sharedPrefStatistic: SharedPrefStatisticService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (application as AppComponent).getWebComponent().inject(this)
         configurationActionBar()
-        sp.clearExcludeList() //TODO remove on prod
+        sharedPrefCocktails.clearExcludeList() //TODO remove on prod
+        Log.d(TAG, "onCreate")
+        sharedPrefStatistic.init("123", "123", "123", "123")
+    }
+
+    override fun onStop() {
+        val data = sharedPrefStatistic.getStatistic()
+        Log.d(TAG, "onStop = $data")
+        sharedPrefStatistic.clearStatistic()
+
+        super.onStop()
     }
 
     override fun onSupportNavigateUp(): Boolean {

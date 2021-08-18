@@ -39,7 +39,18 @@ class SharedPrefStatisticService(private val sp: SharedPreferences, private val 
         return gson.fromJson(statisticJson, StatisticData::class.java)
     }
 
-    fun saveStatistic(statistic: StatisticData) {
+    fun saveStatistic(statistic: StatisticData?) {
+        with(sp.edit()) {
+            putString(KEY_STATISTIC, gson.toJson(statistic))
+            apply()
+        }
+    }
+
+    fun clearStatistic() {
+        val statistic = getStatistic()
+        statistic.searchResults = arrayListOf()
+        statistic.gameResults = arrayListOf()
+
         with(sp.edit()) {
             putString(KEY_STATISTIC, gson.toJson(statistic))
             apply()
