@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
-import lk.game.cocktails.shared.SharedPreferencesService
+import lk.game.cocktails.shared.SharedPrefCocktailService
 import javax.inject.Singleton
 
 @Module
@@ -18,7 +18,7 @@ class SharedPreferencesModule {
 
     @Provides
     @Singleton
-    fun provideSharedPreferencesService(sp: SharedPreferences): SharedPreferencesService {
-        return SharedPreferencesService(sp)
+    fun provideSharedPreferencesService(sp: SharedPreferences): SharedPrefCocktailService {
+        return SharedPrefCocktailService(sp)
     }
 }

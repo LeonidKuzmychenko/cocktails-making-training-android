@@ -2,9 +2,9 @@ package lk.game.cocktails.retrofit.repository
 
 import lk.game.cocktails.retrofit.Api
 import lk.game.cocktails.retrofit.data.Cocktail
-import lk.game.cocktails.shared.SharedPreferencesService
+import lk.game.cocktails.shared.SharedPrefCocktailService
 
-class ApiRepository(private val api: Api, private val sp: SharedPreferencesService) {
+class ApiRepository(private val api: Api, private val sp: SharedPrefCocktailService) {
 
     suspend fun getCocktail(iSize: Long): Cocktail {
         val excludes = sp.getExcludeList().joinToString(",")

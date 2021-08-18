@@ -10,14 +10,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import lk.game.cocktails.application.AppComponent
 import lk.game.cocktails.base.BaseActivity
 import lk.game.cocktails.databinding.ActivityMainBinding
-import lk.game.cocktails.shared.SharedPreferencesService
+import lk.game.cocktails.shared.SharedPrefCocktailService
 import javax.inject.Inject
 
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     @Inject
-    lateinit var sp: SharedPreferencesService
+    lateinit var sp: SharedPrefCocktailService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
