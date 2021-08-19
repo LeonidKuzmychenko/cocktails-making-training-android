@@ -23,11 +23,11 @@ class ModeRecyclerViewAdapter(private val values: List<Mode>) :
     override fun onBindViewHolder(holder: ModeViewHolder, position: Int) {
         holder.binding.modeName.text = values[position].name
         holder.binding.modeCard.setOnClickListener {
-            if (position == 0) {
+            if (position == 1) {
                 val action = ModeFragmentDirections.actionModeFragmentToGameFragment()
                 Navigation.findNavController(holder.itemView).navigate(action)
             } else {
-                Toast.makeText(holder.itemView.context, "SORRY", Toast.LENGTH_SHORT).show()
+                Toast.makeText(holder.itemView.context, "LIBRARY", Toast.LENGTH_SHORT).show()
             }
         }
     }

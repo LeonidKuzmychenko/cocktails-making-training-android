@@ -37,7 +37,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         val data = sharedPrefStatistic.getStatistic()
         Log.d(TAG, "onStop = $data")
         sharedPrefStatistic.clearStatistic()
-
         super.onStop()
     }
 

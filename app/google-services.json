@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "33958072161",
+    "project_id": "cocktails-making-training",
+    "storage_bucket": "cocktails-making-training.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33958072161:android:b3b6acab5e7dbaf11e3f20",
+        "android_client_info": {
+          "package_name": "lk.game.cocktails"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33958072161-pk6hiesmu6n1lhtrkl2a9bsnp2r8akfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeC-rWygxbT0D48tPrHI3n9E3BT2H-WmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33958072161-pk6hiesmu6n1lhtrkl2a9bsnp2r8akfb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

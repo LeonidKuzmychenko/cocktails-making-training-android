@@ -1,9 +1,9 @@
 package lk.game.cocktails.fragments.game
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.navigation.Navigation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -15,7 +15,6 @@ import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.FragmentGameBinding
 import lk.game.cocktails.fragments.game.data.GameItemState
-import lk.game.cocktails.fragments.game.listeners.OnSwipeListener
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailAdapterObserver
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailImageObserver
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailTitleObserver
@@ -43,10 +42,10 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         setHasOptionsMenu(true)
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    //    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.cocktailImage.setOnTouchListener(OnSwipeListener(requireContext()))
+//        binding.cocktailImage.setOnTouchListener(OnSwipeListener(requireContext()))
         viewModel.cocktail.observe(viewLifecycleOwner, GameCocktailTitleObserver(baseActivity()))
         viewModel.cocktail.observe(
             viewLifecycleOwner,
@@ -93,7 +92,15 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
             R.id.nextCocktail -> {
                 viewModel.result.value = !viewModel.result.value!!
                 if (!viewModel.result.value!!) {
-                    nextCocktail()
+                    val result = nextCocktail()
+                    if (result != null) {
+                        val name = viewModel.cocktail.value!!.name
+                        (baseActivity().applicationContext as AppComponent).logGameAnalyticsEvent(
+                            name,
+                            result
+                        )
+                        Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
+                    }
                 }
                 true
             }
@@ -123,9 +130,25 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         Navigation.findNavController(requireView()).navigate(action)
     }
 
-    private fun nextCocktail() {
+    private fun nextCocktail(): Boolean? {
+        val iSize: Long = 12
+
+        var endResult: Boolean? = null
+        val ingredients = viewModel.checkers.value
+
+        if (ingredients != null && ingredients.size >= iSize) {
+            endResult = true
+            for (i in 0..iSize) {
+                val result = ingredients[i.toInt()]
+                if (result == GameItemState.WRONG || result == GameItemState.MISSED) {
+                    endResult = false
+                    break
+                }
+            }
+        }
+
         GlobalScope.launch {
-            val cocktail = apiRepository.getCocktail(12)
+            val cocktail = apiRepository.getCocktail(iSize)
             GlobalScope.launch(Dispatchers.Main) {
                 viewModel.checkers.value = mutableListOf()
                 for (i in 0..12)
@@ -133,5 +156,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
             }
             viewModel.cocktail.postValue(cocktail)
         }
+
+        return endResult
     }
 }
