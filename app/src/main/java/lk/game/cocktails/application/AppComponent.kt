@@ -3,6 +3,8 @@ package lk.game.cocktails.application
 import android.app.Application
 import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import lk.game.cocktails.dagger.DaggerWebComponent
 import lk.game.cocktails.dagger.WebComponent
 import lk.game.cocktails.dagger.modules.AppModule
@@ -14,7 +16,7 @@ class AppComponent : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        mFirebaseAnalytics = Firebase.analytics
         webComponent = DaggerWebComponent.builder().appModule(AppModule(this)).build()
     }
 

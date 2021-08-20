@@ -3,7 +3,7 @@ package lk.game.cocktails.statistics.services
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import lk.game.cocktails.statistics.data.StatisticGame
-import lk.game.cocktails.statistics.data.StatisticSearch
+import lk.game.cocktails.statistics.data.StatisticLibrary
 import lk.game.cocktails.statistics.data.parent.StatisticData
 
 
@@ -11,19 +11,18 @@ class SharedPrefStatisticService(private val sp: SharedPreferences, private val 
 
     private val KEY_STATISTIC: String = "STATISTIC"
 
-    fun init(uuid: String, locale: String, region: String, androidVersion: String) {
+    fun init(uuid: String, locale: String, region: String) {
         val statistic = getStatistic()
         statistic.uuid = uuid
         statistic.locale = locale
         statistic.region = region
-        statistic.androidVersion = androidVersion;
         saveStatistic(statistic)
     }
 
-    fun addSearchResult(searchText: String) {
+    fun addLibraryResult(cocktailName: String) {
         val statistic = getStatistic()
-        val searchResult = StatisticSearch(searchText);
-        statistic.searchResults.add(searchResult)
+        val libraryResult = StatisticLibrary(cocktailName);
+        statistic.libraryResults.add(libraryResult)
         saveStatistic(statistic)
     }
 
@@ -48,7 +47,7 @@ class SharedPrefStatisticService(private val sp: SharedPreferences, private val 
 
     fun clearStatistic() {
         val statistic = getStatistic()
-        statistic.searchResults = arrayListOf()
+        statistic.libraryResults = arrayListOf()
         statistic.gameResults = arrayListOf()
 
         with(sp.edit()) {

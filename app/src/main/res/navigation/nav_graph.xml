@@ -21,10 +21,13 @@
         android:id="@+id/modeFragment"
         android:name="lk.game.cocktails.fragments.mode.ModeFragment"
         android:label="Выбор режима игры"
-        tools:layout="@layout/fragment_mode" >
+        tools:layout="@layout/fragment_mode">
         <action
             android:id="@+id/action_modeFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_modeFragment_to_libraryFragment"
+            app:destination="@id/libraryFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -62,4 +65,9 @@
         android:name="lk.game.cocktails.fragments.dialogs.DialogWinCocktail"
         android:label="DialogWinCocktail"
         tools:layout="@layout/dialog_cocktail_win" />
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="lk.game.cocktails.fragments.library.LibraryFragment"
+        android:label="library_fragment"
+        tools:layout="@layout/library_fragment" />
 </navigation>
