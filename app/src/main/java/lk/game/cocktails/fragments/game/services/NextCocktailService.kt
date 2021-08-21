@@ -1,4 +1,4 @@
-package lk.game.cocktails.fragments.game.observers.next.parent
+package lk.game.cocktails.fragments.game.services
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

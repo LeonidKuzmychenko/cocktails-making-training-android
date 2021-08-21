@@ -15,7 +15,7 @@ import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailImageObse
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailTitleObserver
 import lk.game.cocktails.fragments.game.observers.next.GameFirstRunObserver
 import lk.game.cocktails.fragments.game.observers.next.GameResultObserver
-import lk.game.cocktails.fragments.game.observers.next.parent.NextCocktailService
+import lk.game.cocktails.fragments.game.services.NextCocktailService
 import lk.game.cocktails.retrofit.repository.ApiRepository
 import lk.game.cocktails.statistics.services.SharedPrefStatisticService
 import javax.inject.Inject
@@ -52,10 +52,8 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
             lifecycle(),
             GameCocktailAdapterObserver(
                 viewLifecycleOwner,
-                viewModel.cocktail,
-                viewModel.checkers,
-                viewModel.result,
-                binding.ingredientsList
+                viewModel,
+                binding
             )
         )
         viewModel.cocktail.observe(

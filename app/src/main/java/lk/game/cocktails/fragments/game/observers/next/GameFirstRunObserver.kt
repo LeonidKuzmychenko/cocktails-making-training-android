@@ -2,7 +2,7 @@ package lk.game.cocktails.fragments.game.observers.next
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import lk.game.cocktails.fragments.game.observers.next.parent.NextCocktail
+import lk.game.cocktails.fragments.game.services.NextCocktail
 
 class GameFirstRunObserver(
     private val firstRun: MutableLiveData<Boolean>,
