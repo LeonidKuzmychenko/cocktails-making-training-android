@@ -1,29 +1,61 @@
 package lk.game.cocktails.fragments.library
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import lk.game.cocktails.R
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import lk.game.cocktails.application.AppComponent
+import lk.game.cocktails.base.BaseFragment
+import lk.game.cocktails.dagger.annotation.named.Keys
+import lk.game.cocktails.dagger.annotation.named.Qualifier
+import lk.game.cocktails.databinding.FragmentLibraryBinding
+import lk.game.cocktails.fragments.library.adapter.LibraryRecyclerViewAdapter
+import lk.game.cocktails.retrofit.Api
+import lk.game.cocktails.utils.TAG
+import javax.inject.Inject
 
-class LibraryFragment : Fragment() {
+class LibraryFragment : BaseFragment<FragmentLibraryBinding, LibraryViewModel>() {
 
+    @Inject
+    lateinit var api: Api
 
-    private lateinit var viewModel: LibraryViewModel
+    @Inject
+    @Qualifier(Keys.SERVER_NAME)
+    lateinit var serverName: String
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.library_fragment, container, false)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as AppComponent).getWebComponent().inject(this)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LibraryViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.cocktails.observe(lifecycle(), {
+            binding.libraryList.adapter = LibraryRecyclerViewAdapter(it, serverName)
+        })
+    }
+
+    override fun onResume() {
+        Log.d(TAG, "onResume")
+        GlobalScope.launch {
+            val response = api.getCocktailsShort()
+            Log.d(TAG, "Response Code = ${response.code()}")
+            val body = response.body()
+            viewModel.cocktails.postValue(body)
+        }
+        super.onResume()
+    }
+
+    override fun inflate(inflater: LayoutInflater, container: ViewGroup?): FragmentLibraryBinding {
+        return FragmentLibraryBinding.inflate(inflater)
+    }
+
+    override fun getViewModel(): Class<LibraryViewModel> {
+        return LibraryViewModel::class.java
     }
 
 }

@@ -57,6 +57,6 @@
     <fragment
         android:id="@+id/libraryFragment"
         android:name="lk.game.cocktails.fragments.library.LibraryFragment"
-        android:label="library_fragment"
-        tools:layout="@layout/library_fragment" />
+        android:label="Library"
+        tools:layout="@layout/fragment_library" />
 </navigation>
