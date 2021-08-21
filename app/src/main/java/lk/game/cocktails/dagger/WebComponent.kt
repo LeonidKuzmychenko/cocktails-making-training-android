@@ -9,7 +9,6 @@ import lk.game.cocktails.fragments.game.GameFragment
 import lk.game.cocktails.fragments.library.LibraryFragment
 import lk.game.cocktails.fragments.load.LoadFragment
 import lk.game.cocktails.fragments.menu.MenuFragment
-import lk.game.cocktails.fragments.mode.ModeFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -28,7 +27,6 @@ interface WebComponent {
 
     fun inject(activity: MainActivity)
     fun inject(fragment: LoadFragment)
-    fun inject(fragment: ModeFragment)
     fun inject(fragment: MenuFragment)
     fun inject(fragment: GameFragment)
     fun inject(fragment: LibraryFragment)

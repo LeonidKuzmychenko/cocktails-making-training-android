@@ -18,18 +18,6 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/modeFragment"
-        android:name="lk.game.cocktails.fragments.mode.ModeFragment"
-        android:label="Выбор режима игры"
-        tools:layout="@layout/fragment_mode">
-        <action
-            android:id="@+id/action_modeFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
-        <action
-            android:id="@+id/action_modeFragment_to_libraryFragment"
-            app:destination="@id/libraryFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/gameFragment"
         android:name="lk.game.cocktails.fragments.game.GameFragment"
         tools:layout="@layout/fragment_game">
@@ -46,10 +34,11 @@
         android:label="Меню"
         tools:layout="@layout/fragment_menu">
         <action
-            android:id="@+id/action_menuFragment_to_modeFragment"
-            app:destination="@id/modeFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/menuFragment" />
+            android:id="@+id/action_menuFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_libraryFragment"
+            app:destination="@id/libraryFragment" />
     </fragment>
     <dialog
         android:id="@+id/dialogInfoCocktail"
