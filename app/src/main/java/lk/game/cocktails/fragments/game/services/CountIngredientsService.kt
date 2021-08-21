@@ -1,6 +1,7 @@
 package lk.game.cocktails.fragments.game.services
 
 import android.util.Log
+import lk.game.cocktails.R
 import lk.game.cocktails.databinding.FragmentGameBinding
 import lk.game.cocktails.fragments.game.GameViewModel
 import lk.game.cocktails.fragments.game.data.GameItemState
@@ -21,6 +22,9 @@ class CountIngredientsService(
             }
         }
         Log.d(TAG, "Ingredients = $count1/$count2")
-        binding.textView2?.text = "Ingredients = $count1/$count2"
+        val countView = binding.textView2
+        val context = countView.context
+        val resources = context.resources.getString(R.string.game_ingredients_count)
+        countView.text = String.format(resources, count1, count2)
     }
 }

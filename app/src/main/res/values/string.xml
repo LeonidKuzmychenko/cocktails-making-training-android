@@ -6,6 +6,7 @@
     <string name="game_title">GAME</string>
     <string name="game_confirm">CONFIRM</string>
     <string name="game_next">NEXT</string>
+    <string name="game_ingredients_count">Ingredients %s/%s</string>
 
     <string name="menu_title">LIBRARY</string>
     <string name="menu_library">LIBRARY</string>

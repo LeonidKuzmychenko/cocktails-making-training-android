@@ -7,6 +7,7 @@
     <string name="game_title">ИГРА</string>
     <string name="game_confirm">ПОДТВЕРДИТЬ</string>
     <string name="game_next">ДАЛЬШЕ</string>
+    <string name="game_ingredients_count">Ингредиенты %s/%s</string>
 
     <string name="menu_title">МЕНЮ</string>
     <string name="menu_library">БИБЛИОТЕКА</string>
