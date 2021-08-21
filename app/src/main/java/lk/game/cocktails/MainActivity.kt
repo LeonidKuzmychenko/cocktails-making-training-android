@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.gson.GsonBuilder
 import lk.game.cocktails.application.AppComponent
 import lk.game.cocktails.base.BaseActivity
 import lk.game.cocktails.databinding.ActivityMainBinding
@@ -34,7 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun onStop() {
         val data = sharedPrefStatistic.getStatistic()
-        Log.d(TAG, "onStop = $data")
+        Log.d(TAG, "onStop = ${GsonBuilder().setPrettyPrinting().create().toJson(data)}")
         sharedPrefStatistic.clearStatistic()
         super.onStop()
     }

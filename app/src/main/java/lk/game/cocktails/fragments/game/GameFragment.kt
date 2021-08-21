@@ -117,8 +117,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
             }
         }
         endResult?.let {
-//            Toast.makeText(context, endResult.toString(), Toast.LENGTH_SHORT).show()
-            sharedPrefStatistic.addGameResult(viewModel.cocktail.value!!.id, it)
+            sharedPrefStatistic.addGameResult(viewModel.cocktail.value!!.name, it)
         }
     }
 }

@@ -13,9 +13,9 @@ class GameResultObserver(
     private val menu: Menu
 ) : Observer<Boolean> {
 
-
     override fun onChanged(it: Boolean) {
-        val title = if (it) "NEXT" else "CONFIRM"
+        val resource = if (it) R.string.game_next else R.string.game_confirm
+        val title = context.resources.getString(resource)
         val spannableTitle = SpannableString(title)
         val color = ContextCompat.getColor(context, R.color.black)
         spannableTitle.setSpan(ForegroundColorSpan(color), 0, spannableTitle.length, 0)

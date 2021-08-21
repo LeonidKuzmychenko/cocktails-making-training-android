@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/loadFragment"
         android:name="lk.game.cocktails.fragments.load.LoadFragment"
-        android:label="Загрузка..."
+        android:label="@string/load_title"
         tools:layout="@layout/fragment_load" >
         <action
             android:id="@+id/action_loadFragment_to_menuFragment"
@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="lk.game.cocktails.fragments.menu.MenuFragment"
-        android:label="Меню"
+        android:label="@string/menu_title"
         tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_gameFragment"
@@ -57,6 +57,6 @@
     <fragment
         android:id="@+id/libraryFragment"
         android:name="lk.game.cocktails.fragments.library.LibraryFragment"
-        android:label="Library"
+        android:label="@string/library_title"
         tools:layout="@layout/fragment_library" />
 </navigation>

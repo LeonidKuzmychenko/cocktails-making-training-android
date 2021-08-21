@@ -15,6 +15,7 @@ import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.FragmentLibraryBinding
 import lk.game.cocktails.fragments.library.adapter.LibraryRecyclerViewAdapter
 import lk.game.cocktails.retrofit.Api
+import lk.game.cocktails.statistics.services.SharedPrefStatisticService
 import lk.game.cocktails.utils.TAG
 import javax.inject.Inject
 
@@ -27,6 +28,9 @@ class LibraryFragment : BaseFragment<FragmentLibraryBinding, LibraryViewModel>()
     @Qualifier(Keys.SERVER_NAME)
     lateinit var serverName: String
 
+    @Inject
+    lateinit var sharedPrefStatistic: SharedPrefStatisticService
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as AppComponent).getWebComponent().inject(this)
@@ -35,7 +39,8 @@ class LibraryFragment : BaseFragment<FragmentLibraryBinding, LibraryViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.cocktails.observe(lifecycle(), {
-            binding.libraryList.adapter = LibraryRecyclerViewAdapter(it, serverName)
+            val adapter = LibraryRecyclerViewAdapter(it, serverName, sharedPrefStatistic)
+            binding.libraryList.adapter = adapter
         })
     }
 

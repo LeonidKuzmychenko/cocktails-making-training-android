@@ -10,10 +10,12 @@ import com.bumptech.glide.request.RequestOptions
 import lk.game.cocktails.R
 import lk.game.cocktails.databinding.ItemLibraryBinding
 import lk.game.cocktails.retrofit.data.CocktailShort
+import lk.game.cocktails.statistics.services.SharedPrefStatisticService
 
 class LibraryRecyclerViewAdapter(
     private val values: List<CocktailShort>,
-    private val serverName: String
+    private val serverName: String,
+    private val sharedPrefStatistic: SharedPrefStatisticService
 ) :
     RecyclerView.Adapter<LibraryRecyclerViewAdapter.LibraryViewHolder>() {
 
@@ -31,12 +33,14 @@ class LibraryRecyclerViewAdapter(
         val image = holder.binding.libraryImage
         Glide.with(image.context)
             .load(serverName + cocktail.photo)
-            .fitCenter()
+            .centerCrop()
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .error(ContextCompat.getDrawable(image.context, R.drawable.error))
             .into(image)
         holder.binding.libraryCard.setOnClickListener {
+            sharedPrefStatistic.addLibraryResult(cocktail.name)
         }
+
     }
 
     override fun getItemCount() = values.size

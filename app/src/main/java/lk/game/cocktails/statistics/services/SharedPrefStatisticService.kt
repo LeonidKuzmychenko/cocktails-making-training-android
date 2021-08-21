@@ -26,9 +26,9 @@ class SharedPrefStatisticService(private val sp: SharedPreferences, private val 
         saveStatistic(statistic)
     }
 
-    fun addGameResult(cocktailId: Long, result: Boolean) {
+    fun addGameResult(cocktailName: String, result: Boolean) {
         val statistic = getStatistic()
-        val gameResult = StatisticGame(cocktailId, result)
+        val gameResult = StatisticGame(cocktailName, result)
         statistic.gameResults.add(gameResult)
         saveStatistic(statistic)
     }
