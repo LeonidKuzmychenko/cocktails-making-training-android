@@ -5,7 +5,7 @@ import androidx.core.content.ContextCompat
 import lk.game.cocktails.R
 import lk.game.cocktails.fragments.game.data.GameItemState
 
-class GameItemChangeMapper {
+class GameItemColorSetter {
     fun set(value: GameItemState, text: TextView) {
         when (value) {
             GameItemState.SELECTED -> {

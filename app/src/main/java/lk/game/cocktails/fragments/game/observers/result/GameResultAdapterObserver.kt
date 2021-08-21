@@ -8,17 +8,17 @@ import lk.game.cocktails.fragments.game.services.IngredientsStateService
 class GameResultAdapterObserver(
     private val ingredientCountService: CountIngredientsService,
     private val ingredientsStateService: IngredientsStateService,
-    private val ingredientView: TextView
-
+    private val ingredientView: TextView,
+    private val position: Int
 ) : Observer<Boolean> {
 
     override fun onChanged(it: Boolean) {
         if (it) {
             ingredientView.setOnClickListener(null)
-            ingredientsStateService.checkResult()
+            ingredientsStateService.checkResult(ingredientView, position)
         } else {
             ingredientView.setOnClickListener {
-                ingredientsStateService.checkState()
+                ingredientsStateService.checkState(ingredientView, position)
                 ingredientCountService.checkIngredientsCount()
             }
         }

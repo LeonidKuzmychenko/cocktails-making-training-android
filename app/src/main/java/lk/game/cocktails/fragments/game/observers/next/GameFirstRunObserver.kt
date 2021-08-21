@@ -12,6 +12,7 @@ class GameFirstRunObserver(
     override fun onChanged(it: Boolean) {
         if (it) {
             nextCocktail.nextCocktail()
+
             firstRun.value = false
         }
     }

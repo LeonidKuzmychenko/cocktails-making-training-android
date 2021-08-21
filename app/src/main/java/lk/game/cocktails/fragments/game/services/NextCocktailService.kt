@@ -9,7 +9,7 @@ import lk.game.cocktails.retrofit.repository.ApiRepository
 
 class NextCocktailService(
     private val viewModel: GameViewModel,
-    private val apiRepository: ApiRepository
+    private val apiRepository: ApiRepository,
 ) : NextCocktail {
 
     private val iSize: Long = 12

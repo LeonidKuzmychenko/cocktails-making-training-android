@@ -9,12 +9,13 @@ import lk.game.cocktails.base.BaseFragment
 import lk.game.cocktails.dagger.annotation.named.Keys
 import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.FragmentGameBinding
-import lk.game.cocktails.fragments.game.data.GameItemState
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailAdapterObserver
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailImageObserver
 import lk.game.cocktails.fragments.game.observers.cocktail.GameCocktailTitleObserver
 import lk.game.cocktails.fragments.game.observers.next.GameFirstRunObserver
 import lk.game.cocktails.fragments.game.observers.next.GameResultObserver
+import lk.game.cocktails.fragments.game.services.CheckResultService
+import lk.game.cocktails.fragments.game.services.CountIngredientsService
 import lk.game.cocktails.fragments.game.services.NextCocktailService
 import lk.game.cocktails.retrofit.repository.ApiRepository
 import lk.game.cocktails.statistics.services.SharedPrefStatisticService
@@ -32,11 +33,14 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     @Inject
     lateinit var sharedPrefStatistic: SharedPrefStatisticService
 
+    private lateinit var checkResult: CheckResultService
     private lateinit var nextCocktail: NextCocktailService
+    private lateinit var countIngredientsService: CountIngredientsService
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as AppComponent).getWebComponent().inject(this)
+        checkResult = CheckResultService(viewModel, sharedPrefStatistic)
         nextCocktail = NextCocktailService(viewModel, apiRepository)
     }
 
@@ -47,12 +51,15 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.cocktail.observe(viewLifecycleOwner, GameCocktailTitleObserver(baseActivity()))
+        countIngredientsService = CountIngredientsService(viewModel, binding)
+
+        viewModel.cocktail.observe(lifecycle(), GameCocktailTitleObserver(baseActivity()))
         viewModel.cocktail.observe(
             lifecycle(),
             GameCocktailAdapterObserver(
-                viewLifecycleOwner,
+                lifecycle(),
                 viewModel,
+                countIngredientsService,
                 binding
             )
         )
@@ -63,6 +70,9 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         viewModel.firstRun.observe(
             lifecycle(),
             GameFirstRunObserver(viewModel.firstRun, nextCocktail)
+        )
+        viewModel.cocktail.observe(
+            lifecycle(), { countIngredientsService.checkIngredientsCount() }
         )
     }
 
@@ -77,7 +87,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
             R.id.nextCocktail -> {
                 viewModel.result.value = !viewModel.result.value!!
                 if (viewModel.result.value!!) {
-                    checkResult()
+                    checkResult.checkResult()
                 } else {
                     nextCocktail.nextCocktail()
                 }
@@ -97,25 +107,5 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
 
     override fun clearSubTitle(): Boolean {
         return false
-    }
-
-    private fun checkResult() {
-        val iSize: Long = 12
-        var endResult: Boolean? = null
-        val ingredients = viewModel.checkers.value
-
-        if (ingredients != null && ingredients.size >= iSize) {
-            endResult = true
-            for (i in 0..iSize) {
-                val result = ingredients[i.toInt()]
-                if (result == GameItemState.WRONG || result == GameItemState.MISSED) {
-                    endResult = false
-                    break
-                }
-            }
-        }
-        endResult?.let {
-            sharedPrefStatistic.addGameResult(viewModel.cocktail.value!!.name, it)
-        }
     }
 }
