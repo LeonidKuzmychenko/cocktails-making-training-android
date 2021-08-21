@@ -3,7 +3,6 @@ package lk.game.cocktails.fragments.game
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import lk.game.cocktails.R
 import lk.game.cocktails.application.AppComponent
 import lk.game.cocktails.base.BaseFragment
@@ -18,6 +17,7 @@ import lk.game.cocktails.fragments.game.observers.next.GameFirstRunObserver
 import lk.game.cocktails.fragments.game.observers.next.GameResultObserver
 import lk.game.cocktails.fragments.game.observers.next.parent.NextCocktailService
 import lk.game.cocktails.retrofit.repository.ApiRepository
+import lk.game.cocktails.statistics.services.SharedPrefStatisticService
 import javax.inject.Inject
 
 class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
@@ -28,6 +28,9 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
     @Inject
     @Qualifier(Keys.SERVER_NAME)
     lateinit var serverName: String
+
+    @Inject
+    lateinit var sharedPrefStatistic: SharedPrefStatisticService
 
     private lateinit var nextCocktail: NextCocktailService
 
@@ -98,7 +101,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
         return false
     }
 
-    private fun checkResult(): Boolean? {
+    private fun checkResult() {
         val iSize: Long = 12
         var endResult: Boolean? = null
         val ingredients = viewModel.checkers.value
@@ -113,7 +116,9 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameViewModel>() {
                 }
             }
         }
-        Toast.makeText(context, endResult.toString(), Toast.LENGTH_SHORT).show()
-        return endResult
+        endResult?.let {
+//            Toast.makeText(context, endResult.toString(), Toast.LENGTH_SHORT).show()
+            sharedPrefStatistic.addGameResult(viewModel.cocktail.value!!.id, it)
+        }
     }
 }
