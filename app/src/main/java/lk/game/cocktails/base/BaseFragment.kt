@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
@@ -35,17 +36,16 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
         return binding.root
     }
 
-//    override fun onDetach() {
-//        super.onDetach()
-//        baseActivity = null
-//    }
-
     abstract fun inflate(inflater: LayoutInflater, container: ViewGroup?): VB
 
     abstract fun getViewModel(): Class<VM> //TODO
 
     fun baseActivity(): AppCompatActivity {
         return baseActivity!!
+    }
+
+    fun lifecycle(): LifecycleOwner {
+        return viewLifecycleOwner
     }
 
     protected open fun clearSubTitle(): Boolean {

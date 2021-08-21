@@ -16,8 +16,8 @@ import lk.game.cocktails.dagger.annotation.named.Qualifier
 import lk.game.cocktails.databinding.ActivityMainBinding
 import lk.game.cocktails.shared.SharedPrefCocktailService
 import lk.game.cocktails.statistics.services.SharedPrefStatisticService
+import lk.game.cocktails.utils.TAG
 import javax.inject.Inject
-
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 

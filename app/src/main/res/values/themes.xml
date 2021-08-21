@@ -21,4 +21,5 @@
     <style name="MyToolbar2" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
         <item name="colorControlNormal">@color/black</item>
     </style>
+
 </resources>

@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.Toast
-import lk.game.cocktails.TAG
+import lk.game.cocktails.utils.TAG
 import kotlin.math.abs
 
 class OnSwipeListener(private val context: Context) : OnTouchListener {

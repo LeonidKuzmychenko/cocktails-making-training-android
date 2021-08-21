@@ -2,16 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/infoCocktail"
-        android:icon="@drawable/alert_circle_outline"
-        android:title="info"
-        app:showAsAction="ifRoom"/>
+    <!--    <item-->
+    <!--        android:id="@+id/infoCocktail"-->
+    <!--        android:icon="@drawable/alert_circle_outline"-->
+    <!--        android:title="info"-->
+    <!--        app:showAsAction="ifRoom"/>-->
 
     <item
         android:id="@+id/nextCocktail"
-        android:icon="@drawable/check_bold"
-        android:title="confirm"
-        app:showAsAction="ifRoom"/>
+        android:title="NEXT"
+        app:showAsAction="always" />
 
 </menu>
