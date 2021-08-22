@@ -18,7 +18,7 @@ class GameCocktailImageObserver(
         Glide.with(image.context)
             .load(serverName + cocktail.photo)
             .fitCenter()
-            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
             .error(ContextCompat.getDrawable(image.context, R.drawable.error))
             .into(image)
     }

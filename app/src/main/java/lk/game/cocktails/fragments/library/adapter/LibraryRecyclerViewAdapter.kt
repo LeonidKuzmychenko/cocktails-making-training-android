@@ -34,7 +34,7 @@ class LibraryRecyclerViewAdapter(
         Glide.with(image.context)
             .load(serverName + cocktail.photo)
             .centerCrop()
-            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
             .error(ContextCompat.getDrawable(image.context, R.drawable.error))
             .into(image)
         holder.binding.libraryCard.setOnClickListener {
