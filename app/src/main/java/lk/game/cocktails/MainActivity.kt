@@ -9,15 +9,21 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import lk.game.cocktails.application.AppComponent
 import lk.game.cocktails.base.BaseActivity
 import lk.game.cocktails.databinding.ActivityMainBinding
+import lk.game.cocktails.retrofit.Api
 import lk.game.cocktails.shared.SharedPrefCocktailService
 import lk.game.cocktails.statistics.services.SharedPrefStatisticService
 import lk.game.cocktails.utils.TAG
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
+
+    @Inject
+    lateinit var api: Api
 
     @Inject
     lateinit var sharedPrefCocktails: SharedPrefCocktailService
@@ -34,9 +40,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun onStop() {
-        val data = sharedPrefStatistic.getStatistic()
-        Log.d(TAG, "onStop = ${GsonBuilder().setPrettyPrinting().create().toJson(data)}")
-        sharedPrefStatistic.clearStatistic()
+        GlobalScope.launch {
+            try {
+                val data = sharedPrefStatistic.getStatistic()
+                Log.d(TAG, "onStop = ${GsonBuilder().setPrettyPrinting().create().toJson(data)}")
+                api.saveStatistic(data)
+                sharedPrefStatistic.clearStatistic()
+            } catch (e: Exception) {
+            }
+        }
         super.onStop()
     }
 
@@ -55,8 +67,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     private fun configurationActionBar() {
         val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.loadFragment,
-            R.id.menuFragment
+                R.id.loadFragment,
+                R.id.menuFragment
         ).build()
         setupActionBarWithNavController(getNavController(), appBarConfiguration)
         supportActionBar!!.elevation = 0f
