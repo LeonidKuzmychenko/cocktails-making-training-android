@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CocktailsMakingTraining</string>
+
+    <string name="load_title">ЗАГРУЗКА…</string>
+
+    <string name="game_title">ИГРА</string>
+    <string name="game_confirm">ПОДТВЕРДИТЬ</string>
+    <string name="game_next">ДАЛЬШЕ</string>
+    <string name="game_ingredients_count">Ингредиенты %s/%s</string>
+
+    <string name="menu_title">МЕНЮ</string>
+    <string name="menu_library">БИБЛИОТЕКА</string>
+    <string name="menu_game">ИГРА</string>
+
+    <string name="library_title">БИБЛИОТЕКА</string>
+</resources>

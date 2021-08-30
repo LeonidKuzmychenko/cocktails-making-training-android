@@ -42,4 +42,14 @@ data class Cocktail(
     @Expose
     var ingredients: List<Ingredient>
 
-) : Serializable
+) : Serializable {
+    fun countConsists(): Int {
+        var count = 0
+        for (i in ingredients.indices) {
+            if (ingredients[i].consists) {
+                count++
+            }
+        }
+        return count
+    }
+}

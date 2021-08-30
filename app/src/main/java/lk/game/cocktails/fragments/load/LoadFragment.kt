@@ -32,9 +32,6 @@ class LoadFragment : BaseFragment<FragmentLoadBinding, LoadViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            binding.progressBar.visibility = View.VISIBLE
-        }
         GlobalScope.launch(Dispatchers.IO) {
             val before = Date()
             waitServerStart()

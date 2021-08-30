@@ -8,16 +8,28 @@
     tools:context=".fragments.menu.MenuFragment">
 
     <Button
-        android:id="@+id/start"
+        android:id="@+id/btLibraryMenu"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:backgroundTint="@color/focus_of_attention"
-        android:text="Start"
+        android:backgroundTint="@color/focus"
+        android:text="@string/menu_library"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <Button
+        android:id="@+id/btLibraryGame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/focus"
+        android:text="@string/menu_game"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/guideline5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -45,6 +57,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.46" />
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

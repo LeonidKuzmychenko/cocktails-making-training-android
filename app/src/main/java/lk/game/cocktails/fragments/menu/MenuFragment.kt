@@ -20,9 +20,13 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.start.setOnClickListener {
+        binding.btLibraryMenu.setOnClickListener {
             Navigation.findNavController(requireView())
-                .navigate(MenuFragmentDirections.actionMenuFragmentToModeFragment())
+                .navigate(MenuFragmentDirections.actionMenuFragmentToLibraryFragment())
+        }
+        binding.btLibraryGame.setOnClickListener {
+            Navigation.findNavController(requireView())
+                .navigate(MenuFragmentDirections.actionMenuFragmentToGameFragment())
         }
     }
 

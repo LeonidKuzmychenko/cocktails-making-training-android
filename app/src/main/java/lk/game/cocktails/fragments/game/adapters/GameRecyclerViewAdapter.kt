@@ -1,18 +1,20 @@
 package lk.game.cocktails.fragments.game.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import lk.game.cocktails.R
 import lk.game.cocktails.databinding.ItemIngredientBinding
+import lk.game.cocktails.fragments.game.GameViewModel
+import lk.game.cocktails.fragments.game.observers.result.GameResultAdapterObserverFactory
 import lk.game.cocktails.retrofit.data.Ingredient
 
 class GameRecyclerViewAdapter(
-    private val values: List<Ingredient>,
-    private val checkers: MutableLiveData<MutableList<Boolean>>
+    private val owner: LifecycleOwner,
+    private val viewModel: GameViewModel,
+    private val colorMapper: GameItemColorSetter,
+    private val observerFactory: GameResultAdapterObserverFactory,
+    private val values: List<Ingredient>
 ) : RecyclerView.Adapter<GameRecyclerViewAdapter.GameViewHolder>() {
 
     class GameViewHolder(val binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root)
@@ -24,18 +26,10 @@ class GameRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
-        holder.binding.textView.text = values[position].name
-        changeColor(holder.binding.textView, position)
-        holder.binding.textView.setOnClickListener {
-            checkers.value!![position] = !checkers.value!![position]
-            changeColor(it, position)
-        }
-    }
-
-    private fun changeColor(view: View, position: Int) {
-        val res = if (checkers.value!![position]) R.color.focus_of_attention else R.color.app_card
-        val color = ContextCompat.getColor(view.context, res)
-        view.setBackgroundColor(color)
+        val textView = holder.binding.textView
+        textView.text = values[position].name
+        colorMapper.set(viewModel.checkers.value!![position], textView)
+        viewModel.result.observe(owner, observerFactory.get(textView, position))
     }
 
     override fun getItemCount() = values.size

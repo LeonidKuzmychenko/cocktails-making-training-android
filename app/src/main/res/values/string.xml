@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">CocktailsMakingTraining</string>
+
+    <string name="load_title">LOADING…</string>
+
+    <string name="game_title">GAME</string>
+    <string name="game_confirm">CONFIRM</string>
+    <string name="game_next">NEXT</string>
+    <string name="game_ingredients_count">Ingredients %s/%s</string>
+
+    <string name="menu_title">LIBRARY</string>
+    <string name="menu_library">LIBRARY</string>
+    <string name="menu_game">GAME</string>
+
+    <string name="library_title">LIBRARY</string>
+
+</resources>

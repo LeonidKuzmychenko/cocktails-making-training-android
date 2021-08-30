@@ -3,7 +3,7 @@ package lk.game.cocktails.shared
 import android.content.SharedPreferences
 
 
-class SharedPreferencesService(private val sp: SharedPreferences) {
+class SharedPrefCocktailService(private val sp: SharedPreferences) {
 
     private val KEY_EXCLUDE: String = "KEY"
 
