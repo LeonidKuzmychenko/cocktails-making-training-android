@@ -6,10 +6,10 @@ buildscript {
 
     dependencies {
         //https://archiva.interlocsolutions.com/archiva/repository/internal/com/android/tools/build/gradle/
-        classpath 'com.android.tools.build:gradle:7.0.1'
+        classpath 'com.android.tools.build:gradle:7.0.3'
 
         //https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
 
         //https://mvnrepository.com/artifact/android.arch.navigation/navigation-safe-args-gradle-plugin
         //classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"

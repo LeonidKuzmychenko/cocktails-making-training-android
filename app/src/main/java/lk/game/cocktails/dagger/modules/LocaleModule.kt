@@ -14,7 +14,7 @@ class LocaleModule {
     @Provides
     @Singleton
     fun provideLocale(): String {
-        return Locale.getDefault().language.uppercase()
+        return Locale.getDefault().language.toUpperCase(Locale.ROOT)
     }
 
 }
