@@ -24,9 +24,10 @@ class SharedPrefCocktailService(private val sp: SharedPreferences) {
 
     fun getExcludeListSize(): Int = getExcludeList().size
 
-    fun clearExcludeList() {
+    fun clearExcludeList(): MutableList<Long> {
         val editor: SharedPreferences.Editor = sp.edit()
         editor.putStringSet(KEY_EXCLUDE, HashSet<String>())
         editor.apply()
+        return mutableListOf()
     }
 }

@@ -7,7 +7,13 @@ import lk.game.cocktails.shared.SharedPrefCocktailService
 class ApiRepository(private val api: Api, private val sp: SharedPrefCocktailService) {
 
     suspend fun getCocktail(iSize: Long): Cocktail {
-        val excludes = sp.getExcludeList().joinToString(",")
+        var excludeList = sp.getExcludeList()
+
+        if (excludeList.size == 90) {
+            excludeList = sp.clearExcludeList()
+        }
+
+        val excludes = excludeList.joinToString(",")
         val response = api.getCocktail(excludes, iSize)
         val responseCode = response.code()
         if (responseCode == 215) {

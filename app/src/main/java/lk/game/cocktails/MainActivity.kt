@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         super.onCreate(savedInstanceState)
         (application as AppComponent).getWebComponent().inject(this)
         configurationActionBar()
-        sharedPrefCocktails.clearExcludeList() //TODO remove on prod
+//        sharedPrefCocktails.clearExcludeList() //TODO remove on prod
         Log.d(TAG, "onCreate")
     }
 
